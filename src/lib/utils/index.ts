@@ -874,6 +874,7 @@ export const removeDetails = (content, types) => {
 	return content;
 };
 
+// Remove all <details>...</details> blocks
 export const removeAllDetails = (content) => {
 	content = content.replace(/<details[^>]*>.*?<\/details>/gis, '');
 	return content;
