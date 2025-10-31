@@ -977,9 +977,7 @@
 														}
 													);
 												}
-												}
-											}
-											
+												}}
 										>
 											{#if $ttsState.isLoading && $ttsState.currentMessageId === message.id}
 												<svg
