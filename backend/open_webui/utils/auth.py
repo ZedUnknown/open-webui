@@ -96,10 +96,6 @@ def get_license_data(app, key):
 
     try:
         if LICENSE_BLOB:
-            print("Validating license...")
-            print("License key:", key)
-            print("License blob:", LICENSE_BLOB)
-            
             nl = 12
             kb = hashlib.sha256((key.replace("-", "").upper()).encode()).digest()
 
