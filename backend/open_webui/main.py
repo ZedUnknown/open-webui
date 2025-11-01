@@ -93,6 +93,7 @@ from open_webui.routers import (
     users,
     utils,
     scim,
+    system_info,
 )
 
 from open_webui.routers.retrieval import (
@@ -1282,7 +1283,7 @@ app.mount("/ws", socket_app)
 
 app.include_router(ollama.router, prefix="/ollama", tags=["ollama"])
 app.include_router(openai.router, prefix="/openai", tags=["openai"])
-
+app.include_router(system_info.router, prefix="/system", tags=["system"])
 
 app.include_router(pipelines.router, prefix="/api/v1/pipelines", tags=["pipelines"])
 app.include_router(tasks.router, prefix="/api/v1/tasks", tags=["tasks"])

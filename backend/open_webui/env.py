@@ -498,14 +498,13 @@ SCIM_TOKEN = os.environ.get("SCIM_TOKEN", "")
 ####################################
 
 LICENSE_KEY = os.environ.get("LICENSE_KEY", "")
+print("LICENSE_KEY: ", LICENSE_KEY)
 
-LICENSE_BLOB = None
-LICENSE_BLOB_PATH = os.environ.get("LICENSE_BLOB_PATH", DATA_DIR / "l.data")
-if LICENSE_BLOB_PATH and os.path.exists(LICENSE_BLOB_PATH):
-    with open(LICENSE_BLOB_PATH, "rb") as f:
-        LICENSE_BLOB = f.read()
+LICENSE_BLOB = os.environ.get("LICENSE_BLOB")
+print("LICENSE_BLOB: ", LICENSE_BLOB)
 
 LICENSE_PUBLIC_KEY = os.environ.get("LICENSE_PUBLIC_KEY", "")
+print("LICENSE_PUBLIC_KEY: ", LICENSE_PUBLIC_KEY)
 
 pk = None
 if LICENSE_PUBLIC_KEY:

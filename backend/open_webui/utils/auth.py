@@ -92,37 +92,14 @@ def get_license_data(app, key):
                 setattr(app.state, "WEBUI_NAME", v)
             elif k == "metadata":
                 setattr(app.state, "LICENSE_METADATA", v)
-
-    def handler(u):
-        res = requests.post(
-            f"{u}/api/v1/license/",
-            json={"key": key, "version": "1"},
-            timeout=5,
-        )
-
-        if getattr(res, "ok", False):
-            payload = getattr(res, "json", lambda: {})()
-            data_handler(payload)
-            return True
-        else:
-            log.error(
-                f"License: retrieval issue: {getattr(res, 'text', 'unknown error')}"
-            )
-
-    if key:
-        us = [
-            "https://api.openwebui.com",
-            "https://licenses.api.openwebui.com",
-        ]
-        try:
-            for u in us:
-                if handler(u):
-                    return True
-        except Exception as ex:
-            log.exception(f"License: Uncaught Exception: {ex}")
+                print("License metadata:", v)
 
     try:
         if LICENSE_BLOB:
+            print("Validating license...")
+            print("License key:", key)
+            print("License blob:", LICENSE_BLOB)
+            
             nl = 12
             kb = hashlib.sha256((key.replace("-", "").upper()).encode()).digest()
 
@@ -140,6 +117,7 @@ def get_license_data(app, key):
             pn, pt = nt(pb)
 
             data = json.loads(aesgcm.decrypt(pn, pt, None).decode())
+            print("License data:", data)
             if not data.get("exp") and data.get("exp") < datetime.now().date():
                 return False
 
@@ -147,12 +125,10 @@ def get_license_data(app, key):
             return True
     except Exception as e:
         log.error(f"License: {e}")
-
     return False
 
 
 bearer_security = HTTPBearer(auto_error=False)
-
 
 def get_password_hash(password: str) -> str:
     """Hash a password using bcrypt"""
