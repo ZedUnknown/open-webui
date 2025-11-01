@@ -26,7 +26,7 @@ export const requestSystemInfo = async (): Promise<object> => {
 let handler: ReturnType<typeof setInterval> | null = null;
 
 // start updating 'systemInfo'
-export const startSystemInfo = (interval=5000) => {
+export const startSystemInfo = (interval=1000) => {
 	
 	const fetchResult = async () => {
 		try {
