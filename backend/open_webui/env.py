@@ -498,13 +498,8 @@ SCIM_TOKEN = os.environ.get("SCIM_TOKEN", "")
 ####################################
 
 LICENSE_KEY = os.environ.get("LICENSE_KEY", "")
-print("LICENSE_KEY: ", LICENSE_KEY)
-
 LICENSE_BLOB = os.environ.get("LICENSE_BLOB")
-print("LICENSE_BLOB: ", LICENSE_BLOB)
-
 LICENSE_PUBLIC_KEY = os.environ.get("LICENSE_PUBLIC_KEY", "")
-print("LICENSE_PUBLIC_KEY: ", LICENSE_PUBLIC_KEY)
 
 pk = None
 if LICENSE_PUBLIC_KEY:
@@ -517,7 +512,6 @@ if LICENSE_PUBLIC_KEY:
             "utf-8"
         )
     )
-
 
 ####################################
 # MODELS
