@@ -8,21 +8,26 @@ from open_webui.env import SRC_LOG_LEVELS
 log = logging.getLogger(__name__)
 log.setLevel(SRC_LOG_LEVELS["DB"])
 
-system_info = {}
+__info = {}
 
 def getSystemInfo():
-    return system_info
+    return __info
 
 # system info
 # cache system info (every 6 seconds)
 async def sysinfo():
-    while True:
-        await asyncio.to_thread(collectSystemInfo)
-        await asyncio.sleep(6)
+    try:
+        while True:
+            await asyncio.to_thread(collectSystemInfo)
+            await asyncio.sleep(6)
+    except asyncio.CancelledError:
+        log.info("Sysinfo worker was cancelled")
+    except Exception as e:
+        log.error(f"Error in sysinfo: {e}")
 
 # runs in a separate thread to prevent blocking
 def collectSystemInfo():
-    global system_info
+    global __info
     gpus_info = {}
     
     try:
@@ -74,9 +79,8 @@ def collectSystemInfo():
         ram_usage = round(psutil.virtual_memory().percent, 0)
     except Exception as e:
         log.error(f"Failed to get system info: {e}")
-        return
 
-    system_info.update({
+    __info.update({
         'cpu_usage': cpu_usage,
         'ram_usage': ram_usage,
         'gpus': gpus_info
@@ -86,27 +90,33 @@ def collectSystemInfo():
 init_time = time.time()
 
 async def uptime():
-    global system_info
-    while True:
-        current_time = time.time()
-        duration = int(current_time - init_time)
+    global __info
+    try:
+        while True:
+            current_time = time.time()
+            duration = int(current_time - init_time)
 
-        seconds = duration % 60
-        minutes = (duration // 60) % 60
-        hours = (duration // 3600) % 24
-        days_total = duration // 86400
+            seconds = duration % 60
+            minutes = (duration // 60) % 60
+            hours = (duration // 3600) % 24
+            days_total = duration // 86400
 
-        years = days_total // 365
-        months = (days_total % 365) // 30
-        days = (days_total % 365) % 30
+            years = days_total // 365
+            months = (days_total % 365) // 30
+            days = (days_total % 365) % 30
 
-        uptime_str = (
-            (f"{years}y:" if years > 0 else "") +
-            (f"{months}m:" if months > 0 else "") +
-            (f"{days}d:" if days > 0 else "") +
-            (f"{hours}h:" if hours > 0 else "") +
-            (f"{minutes}m:" if minutes > 0 else "") +
-            (f"{seconds}s")
-        )
-        system_info["uptime"] = uptime_str
-        await asyncio.sleep(1)
+            uptime_str = (
+                (f"{years}y:" if years > 0 else "") +
+                (f"{months}m:" if months > 0 else "") +
+                (f"{days}d:" if days > 0 else "") +
+                (f"{hours}h:" if hours > 0 else "") +
+                (f"{minutes}m:" if minutes > 0 else "") +
+                (f"{seconds}s")
+            )
+            __info["uptime"] = uptime_str
+            await asyncio.sleep(1)
+    
+    except asyncio.CancelledError:
+        log.info("Uptime worker was cancelled")
+    except Exception as e:
+        log.error(f"Error in uptime: {e}")

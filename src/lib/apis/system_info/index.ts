@@ -12,9 +12,13 @@ export const systemInfo = writable({
 let socket: WebSocket | null = null;
 export const startSystemInfo = () => {
 	// removing http:// or https:// from SYSTEM_INFO_API_BASE_URL
-	const SANITIZED_SYSTEM_INFO_API_BASE_URL = `ws://${SYSTEM_INFO_API_BASE_URL.replace(/^https?:\/\//, '')}/ws/info`;
-	console.log('SANITIZED_SYSTEM_INFO_API_BASE_URL', SANITIZED_SYSTEM_INFO_API_BASE_URL);
-	socket = new WebSocket(SANITIZED_SYSTEM_INFO_API_BASE_URL);
+	// wss:/ for secure websocket
+	const SANITIZED_URL = SYSTEM_INFO_API_BASE_URL
+						.replace('/^http://', 'ws://')
+						.replace('/^https://', 'wss://') + '/ws/info';
+
+	console.log('SANITIZED_URL', SANITIZED_URL);
+	socket = new WebSocket(SANITIZED_URL);
 	socket.onopen = () => {
 		console.log('WebSocket connection opened');
 	};
