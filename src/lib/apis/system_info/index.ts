@@ -20,10 +20,8 @@ export const startSystemInfo = () => {
 	};
 	socket.onmessage = (event) => {
 		systemInfo.update((prev) => ({ ...prev, ...JSON.parse(event.data) }));
+		console.log('systemInfo updated', systemInfo);
 	}
-	socket.onclose = () => {
-		console.log('WebSocket connection closed');
-	};
 	socket.onerror = (error) => {
 		console.error('WebSocket error:', error);
 	}

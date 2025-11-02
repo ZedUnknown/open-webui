@@ -19,7 +19,7 @@
 		current: '',
 		latest: ''
 	};
-	
+
 	const checkForVersionUpdates = async () => {
 		updateAvailable = null;
 		version = await getVersionUpdates(localStorage.token).catch((error) => {
@@ -28,27 +28,24 @@
 				latest: WEBUI_VERSION
 			};
 		});
-		
 		console.log(version);
-		
 		updateAvailable = compareVersion(version.latest, version.current);
 		console.log(updateAvailable);
 	};
-	
+
 	onMount(async () => {
 		ollamaVersion = await getOllamaVersion(localStorage.token).catch((error) => {
 			return '';
 		});
-
 		if ($config?.features?.enable_version_update_check) {
 			checkForVersionUpdates();
 		}
 		startSystemInfo();
 	});
-	
+
 	onDestroy(() => {
 		stopSystemInfo();
-	})
+	});
 	
 </script>
 
