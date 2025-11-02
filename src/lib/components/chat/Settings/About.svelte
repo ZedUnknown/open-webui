@@ -111,7 +111,7 @@
 					{:else}
 						<!-- loading animation -->
 						<div class="flex">
-							<div class="relative flex w-64 gap-2 p-4">
+							<div class="relative flex w-64 gap-2 pt-2">
 								<div class="flex-1">
 									<div class="mb-1 h-8 w-3/5 rounded-lg animate-[shimmer_1.5s_infinite_linear]"></div>
 								</div>
@@ -130,7 +130,7 @@
 					{:else}
 						<!-- loading animation -->
 						<div class="flex">
-							<div class="relative flex w-64 gap-2 p-4">
+							<div class="relative flex w-64 gap-2 pt-2">
 								<div class="flex-1">
 									<div class="mb-1 h-8 w-3/5 rounded-lg animate-[shimmer_1.5s_infinite_linear]"></div>
 								</div>
@@ -139,6 +139,29 @@
 					{/if}
 				</div>
 			</div>
+		</div>
+
+		<!-- RAM USAGE -->
+		<div class="bg-white/5 dark:bg-gray-500/5 border border-gray-100 dark:border-gray-850 p-4 rounded-lg">
+			<div class="text-sm font-medium text-gray-500 mb-2">RAM Usage</div>
+			{#if $systemInfo?.ram_usage}
+				<div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+					<div
+						class="bg-green-500 h-2.5 rounded-full"
+						style="width: {$systemInfo?.ram_usage ?? 0}%"
+					></div>
+				</div>
+				<p class="text-xs text-right mt-1 text-gray-600 dark:text-gray-400">{$systemInfo?.ram_usage}% Used</p>
+			{:else}
+				<!-- loading animation -->
+				<div class="flex">
+					<div class="relative flex w-64 gap-2 pt-2">
+						<div class="flex-1">
+							<div class="mb-1 h-8 w-full rounded-lg animate-[shimmer_1.5s_infinite_linear]"></div>
+						</div>
+					</div>
+				</div>
+			{/if}
 		</div>
 
 		<!-- VRAM USAGE -->
@@ -162,29 +185,6 @@
 						</p>
 					</div>
 				{/each}
-			{/if}
-		</div>
-
-		<!-- RAM USAGE -->
-		<div class="bg-white/5 dark:bg-gray-500/5 border border-gray-100 dark:border-gray-850 p-4 rounded-lg">
-			<div class="text-sm font-medium text-gray-500 mb-2">RAM Usage</div>
-			{#if $systemInfo?.ram_usage}
-				<div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-					<div
-						class="bg-green-500 h-2.5 rounded-full"
-						style="width: {$systemInfo?.ram_usage ?? 0}%"
-					></div>
-				</div>
-				<p class="text-xs text-right mt-1 text-gray-600 dark:text-gray-400">{$systemInfo?.ram_usage}% Used</p>
-			{:else}
-				<!-- loading animation -->
-				<div class="flex">
-					<div class="relative flex w-64 gap-2 p-4">
-						<div class="flex-1">
-							<div class="mb-1 h-8 w-3/5 rounded-lg animate-[shimmer_1.5s_infinite_linear]"></div>
-						</div>
-					</div>
-				</div>
 			{/if}
 		</div>
 

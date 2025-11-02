@@ -8,39 +8,34 @@ export const systemInfo = writable({
 	uptime: '',
 });
 
-export const requestSystemInfo = async (): Promise<object> => {
-	const result = await fetch(`${SYSTEM_INFO_API_BASE_URL}/info`, {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json',
-		}
-	})
-	if (!result.ok) {
-		const error = await result.text();
-		throw error;
-	}
-	const data = await result.json();
-	return data;
-};
-
-let handler: ReturnType<typeof setInterval> | null = null;
-
 // start updating 'systemInfo'
-export const startSystemInfo = (interval=1000) => {
-	
-	const fetchResult = async () => {
-		try {
-			const result = await requestSystemInfo();
-			systemInfo.update((prev) => ({ ...prev, ...result }));
-		} catch (e) {}
+let socket: WebSocket | null = null;
+export const startSystemInfo = () => {
+	// removing http:// or https:// from SYSTEM_INFO_API_BASE_URL
+	const SANITIZED_SYSTEM_INFO_API_BASE_URL = `ws://${SYSTEM_INFO_API_BASE_URL.replace(/^https?:\/\//, '')}/ws/info`;
+	console.log('SANITIZED_SYSTEM_INFO_API_BASE_URL', SANITIZED_SYSTEM_INFO_API_BASE_URL);
+	socket = new WebSocket(SANITIZED_SYSTEM_INFO_API_BASE_URL);
+	socket.onopen = () => {
+		console.log('WebSocket connection opened');
+	};
+	socket.onmessage = (event) => {
+		systemInfo.update((prev) => ({ ...prev, ...JSON.parse(event.data) }));
 	}
-	fetchResult()
-	handler = setInterval(fetchResult, interval);
+	socket.onclose = () => {
+		console.log('WebSocket connection closed');
+	};
+	socket.onerror = (error) => {
+		console.error('WebSocket error:', error);
+	}
 }
 
-// stop updating 'systemInfo'
+// stop updating 'systemInfo' (close websocket + reset systemInfo)
 export const stopSystemInfo = () => {
-	if (handler) {
-		clearInterval(handler);
-	}
+	socket?.close();
+	systemInfo.set({
+		cpu_usage: null,
+		ram_usage: null,
+		gpus: {},
+		uptime: ""
+	});
 }

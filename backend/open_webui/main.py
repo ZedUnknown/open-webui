@@ -92,9 +92,9 @@ from open_webui.routers import (
     tools,
     users,
     utils,
-    scim,
-    system_info,
+    scim
 )
+from open_webui.routers.system_info import system_info
 
 from open_webui.routers.retrieval import (
     get_embedding_function,
