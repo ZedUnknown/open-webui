@@ -2,6 +2,11 @@ import psutil
 import GPUtil
 import time
 import asyncio
+import logging
+from open_webui.env import SRC_LOG_LEVELS
+
+log = logging.getLogger(__name__)
+log.setLevel(SRC_LOG_LEVELS["DB"])
 
 system_info = {}
 
@@ -32,22 +37,22 @@ def collectSystemInfo():
                 'utilization': round(gpu.load, 1)
             }
             
-            # sim
-            sim_usage = gpu.memoryUsed*0.6
-            memory_total = round(24 * 1024 / 1024, 1)
-            memory_free = round(min(memory_total - sim_usage, memory_total) / 1024, 1)
-            memory_used = round(min(sim_usage, memory_total) / 1024, 1)
-            utilization = round(min(sim_usage/memory_total*100, 100), 1)
-            gpus_info[1] = {
-                'name': 'NVIDIA GeForce RTX 4090',
-                'memory_total': memory_total,
-                'memory_free': memory_free,
-                'memory_used': memory_used,
-                'utilization': utilization
-            }
+        # sim
+        sim_usage = gpu.memoryUsed*0.6
+        memory_total = round(24 * 1024 / 1024, 1)
+        memory_free = round(min(memory_total - sim_usage, memory_total) / 1024, 1)
+        memory_used = round(min(sim_usage, memory_total) / 1024, 1)
+        utilization = round(min(sim_usage/memory_total*100, 100), 1)
+        gpus_info[1] = {
+            'name': 'NVIDIA GeForce RTX 4090',
+            'memory_total': memory_total,
+            'memory_free': memory_free,
+            'memory_used': memory_used,
+            'utilization': utilization
+        }
             
     except Exception as e:
-        print(e)
+        log.error(f"Failed to get system info: {e}")
         
     cpu_usage = psutil.cpu_percent()
     ram_usage = round(psutil.virtual_memory().percent, 0)

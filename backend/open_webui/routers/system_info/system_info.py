@@ -1,7 +1,11 @@
-import os
 import asyncio
-from fastapi import APIRouter, WebSocket, HTTPException
+import logging
 from .workers.sysinfo import getSystemInfo
+from open_webui.env import SRC_LOG_LEVELS
+from fastapi import APIRouter, WebSocket, HTTPException
+
+log = logging.getLogger(__name__)
+log.setLevel(SRC_LOG_LEVELS["DB"])
 
 router = APIRouter()
 
@@ -14,4 +18,7 @@ async def system_info(websocket: WebSocket):
             await websocket.send_json(system_info)
             await asyncio.sleep(1)
     except Exception as e:
+        log.error(f"Error in system_info: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        await websocket.close()
