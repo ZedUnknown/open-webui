@@ -2084,15 +2084,16 @@ async def healthcheck_with_db():
     Session.execute(text("SELECT 1;")).all()
     return {"status": True}
 
-# leave no cache!
-class NoCacheStaticFiles(StaticFiles):
-    async def get_response(self, path, scope):
-        response = await super().get_response(path, scope)
-        # Disable browser caching
-        response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
-        return response
+# # leave no cache!
+# class NoCacheStaticFiles(StaticFiles):
+#     async def get_response(self, path, scope):
+#         response = await super().get_response(path, scope)
+#         # Disable browser caching
+#         response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+#         return response
 
-app.mount("/static", NoCacheStaticFiles(directory=STATIC_DIR), name="static")
+# app.mount("/static", NoCacheStaticFiles(directory=STATIC_DIR), name="static")
+app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 @app.get("/cache/{path:path}")
 async def serve_cache_file(
