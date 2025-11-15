@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let className = 'w-4 h-4';
+	export let className = 'w-5 h-5';
 	export let strokeWidth = '2';
 </script>
 

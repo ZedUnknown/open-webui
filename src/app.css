@@ -129,8 +129,8 @@ li p {
 }
 
 ::-webkit-scrollbar {
-	height: 0.8rem;
-	width: 0.8rem;
+	height: 0.45rem;
+	width: 0.45rem;
 }
 
 ::-webkit-scrollbar-track {
@@ -142,7 +142,11 @@ select {
 	background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
 	background-position: right 0rem center;
 	background-repeat: no-repeat;
+	border-radius: 0.25rem;
 	background-size: 1.5em 1.5em;
+	text-indent: 0.01px;
+	text-align-last: right;
+	cursor: pointer;
 	-webkit-print-color-adjust: exact;
 	print-color-adjust: exact;
 	/* padding-right: 2.5rem; */
@@ -150,6 +154,18 @@ select {
 	-moz-appearance: none;
 	/* for Chrome */
 	-webkit-appearance: none;
+}
+
+select option {
+	text-align: left;
+}
+
+.dark select:not([class*='bg-transparent']) {
+	@apply bg-gray-900 text-gray-300;
+}
+
+.dark select option {
+	@apply bg-gray-850 text-white;
 }
 
 @keyframes shimmer {
