@@ -8,6 +8,7 @@ node_modules
 .env
 .backups
 .backup
+.pvt
 *.pem
 *.key
 .env.*
