@@ -197,9 +197,14 @@
 
 			<div class="flex w-full justify-between">
 				<div class=" self-center text-xs font-medium">{$i18n.t('Theme')}</div>
-				<div class="flex items-center relative">
+				<div class="flex items-center relative rounded-sm">
 					<select
-						class="dark:bg-gray-900 w-fit pr-8 rounded-sm py-2 px-2 text-xs bg-transparent text-right {$settings.highContrastMode
+						class="
+						bg-gray-900 
+						dark:bg-gray-900
+						text-xs py-2 px-3 pr-8
+						text-left
+						{$settings.highContrastMode
 							? ''
 							: 'outline-hidden'}"
 						bind:value={selectedTheme}
@@ -221,7 +226,7 @@
 				<div class=" self-center text-xs font-medium">{$i18n.t('Language')}</div>
 				<div class="flex items-center relative">
 					<select
-						class="dark:bg-gray-900 w-fit pr-8 rounded-sm py-2 px-2 text-xs bg-transparent text-right {$settings.highContrastMode
+						class="dark:bg-gray-900 w-fit pr-8 rounded-sm py-2 px-2 text-xs bg-transparent {$settings.highContrastMode
 							? ''
 							: 'outline-hidden'}"
 						bind:value={lang}
