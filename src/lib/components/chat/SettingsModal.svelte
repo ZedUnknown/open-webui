@@ -736,7 +736,7 @@
 								</div>
 								<div class=" self-center">{$i18n.t('Personalization')}</div>
 							</button>
-						{:else if tabId === 'audio'}
+						<!-- {:else if tabId === 'audio'}
 							<button
 								role="tab"
 								aria-controls="tab-audio"
@@ -759,7 +759,7 @@
 									<SoundHigh strokeWidth="2" />
 								</div>
 								<div class=" self-center">{$i18n.t('Audio')}</div>
-							</button>
+							</button> -->
 						{:else if tabId === 'data_controls'}
 							<button
 								role="tab"
