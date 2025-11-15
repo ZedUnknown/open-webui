@@ -26,7 +26,7 @@
 	import InfoCircle from '../icons/InfoCircle.svelte';
 	import WrenchAlt from '../icons/WrenchAlt.svelte';
 	import Face from '../icons/Face.svelte';
-	import AppNotification from '../icons/AppNotification.svelte';
+	import UI from '../icons/UI.svelte';
 	import UserBadgeCheck from '../icons/UserBadgeCheck.svelte';
 
 	const i18n = getContext('i18n');
@@ -588,7 +588,7 @@
 			<div
 				role="tablist"
 				id="settings-tabs-container"
-				class="tabs flex flex-row overflow-x-auto gap-2.5 mx-3 md:pr-4 md:gap-1 md:flex-col flex-1 md:flex-none md:w-50 md:min-h-[36rem] md:max-h-[36rem] dark:text-gray-200 text-sm text-left mb-1 md:mb-0 -translate-y-1"
+				class="tabs flex flex-row overflow-x-auto gap-2.5 mx-3 md:pr-4 md:gap-1 md:flex-col flex-1 md:flex-none md:w-50 md:min-h-[36rem] md:max-h-[36rem] dark:text-gray-200 text-md text-left mb-1 md:mb-0 -translate-y-1"
 			>
 				<div
 					class="hidden md:flex w-full rounded-full px-2.5 gap-2 bg-gray-100/80 dark:bg-gray-850/80 backdrop-blur-2xl my-1 mb-1.5"
@@ -656,7 +656,7 @@
 								}}
 							>
 								<div class=" self-center mr-2">
-									<AppNotification strokeWidth="2" />
+									<UI strokeWidth="2" />
 								</div>
 								<div class=" self-center">{$i18n.t('Interface')}</div>
 							</button>
