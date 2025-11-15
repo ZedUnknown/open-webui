@@ -37,19 +37,19 @@
 	let playbackRate = 1;
 
 	const getVoices = async () => {
-		if (TTSEngine === 'browser-kokoro') {
-			if (!TTSModel) {
-				await loadKokoro();
-			}
+		// if (TTSEngine === 'tts-engine-kokoro') {
+		// 	if (!TTSModel) {
+		// 		await loadKokoro();
+		// 	}
 
-			voices = Object.entries(TTSModel.voices).map(([key, value]) => {
-				return {
-					id: key,
-					name: value.name,
-					localService: false
-				};
-			});
-		} else {
+		// 	voices = Object.entries(TTSModel.voices).map(([key, value]) => {
+		// 		return {
+		// 			id: key,
+		// 			name: value.name,
+		// 			localService: false
+		// 		};
+		// 	});
+		// } else {
 			if ($config.audio.tts.engine === '') {
 				const getVoicesLoop = setInterval(async () => {
 					voices = await speechSynthesis.getVoices();
@@ -69,7 +69,7 @@
 					voices = res.voices;
 				}
 			}
-		}
+		// }
 	};
 
 	const toggleResponseAutoPlayback = async () => {
@@ -109,47 +109,47 @@
 		onTTSEngineChange();
 	}
 
-	const onTTSEngineChange = async () => {
-		if (TTSEngine === 'browser-kokoro') {
-			await loadKokoro();
-		}
-	};
+	// const onTTSEngineChange = async () => {
+	// 	if (TTSEngine === 'tts-engine-kokoro') {
+	// 		await loadKokoro();
+	// 	}
+	// };
 
-	const loadKokoro = async () => {
-		if (TTSEngine === 'browser-kokoro') {
-			voices = [];
+	// const loadKokoro = async () => {
+	// 	if (TTSEngine === 'tts-engine-kokoro') {
+	// 		voices = [];
 
-			if (TTSEngineConfig?.dtype) {
-				TTSModel = null;
-				TTSModelProgress = null;
-				TTSModelLoading = true;
+	// 		if (TTSEngineConfig?.dtype) {
+	// 			TTSModel = null;
+	// 			TTSModelProgress = null;
+	// 			TTSModelLoading = true;
 
-				const model_id = 'onnx-community/Kokoro-82M-v1.0-ONNX';
+	// 			const model_id = 'onnx-community/Kokoro-82M-v1.0-ONNX';
 
-				const { KokoroTTS } = await import('kokoro-js');
-				TTSModel = await KokoroTTS.from_pretrained(model_id, {
-					dtype: TTSEngineConfig.dtype, // Options: "fp32", "fp16", "q8", "q4", "q4f16"
-					device: !!navigator?.gpu ? 'webgpu' : 'wasm', // Detect WebGPU
-					progress_callback: (e) => {
-						TTSModelProgress = e;
-						console.log(e);
-					}
-				});
+	// 			const { KokoroTTS } = await import('kokoro-js');
+	// 			TTSModel = await KokoroTTS.from_pretrained(model_id, {
+	// 				dtype: TTSEngineConfig.dtype, // Options: "fp32", "fp16", "q8", "q4", "q4f16"
+	// 				device: !!navigator?.gpu ? 'webgpu' : 'wasm', // Detect WebGPU
+	// 				progress_callback: (e) => {
+	// 					TTSModelProgress = e;
+	// 					console.log(e);
+	// 				}
+	// 			});
 
-				await getVoices();
+	// 			await getVoices();
 
-				// const rawAudio = await tts.generate(inputText, {
-				// 	// Use `tts.list_voices()` to list all available voices
-				// 	voice: voice
-				// });
+	// 			// const rawAudio = await tts.generate(inputText, {
+	// 			// 	// Use `tts.list_voices()` to list all available voices
+	// 			// 	voice: voice
+	// 			// });
 
-				// const blobUrl = URL.createObjectURL(await rawAudio.toBlob());
-				// const audio = new Audio(blobUrl);
+	// 			// const blobUrl = URL.createObjectURL(await rawAudio.toBlob());
+	// 			// const audio = new Audio(blobUrl);
 
-				// audio.play();
-			}
-		}
-	};
+	// 			// audio.play();
+	// 		}
+	// 	}
+	// };
 </script>
 
 <form
@@ -248,12 +248,13 @@
 						placeholder={$i18n.t('Select an engine')}
 					>
 						<option value="">{$i18n.t('Default')}</option>
-						<option value="browser-kokoro">{$i18n.t('Kokoro.js (Browser)')}</option>
+						<option value="tts-engine-rvc">{$i18n.t('RVC (Online)')}</option>
+						<option value="tts-engine-kokoro">{$i18n.t('Kokoro (Offline)')}</option>
 					</select>
 				</div>
 			</div>
 
-			{#if TTSEngine === 'browser-kokoro'}
+			{#if TTSEngine === 'tts-engine-kokoro'}
 				<div class=" py-0.5 flex w-full justify-between">
 					<div class=" self-center text-xs font-medium">{$i18n.t('Kokoro.js Dtype')}</div>
 					<div class="flex items-center relative">
@@ -308,7 +309,7 @@
 
 		<hr class=" border-gray-100 dark:border-gray-850" />
 
-		{#if TTSEngine === 'browser-kokoro'}
+		{#if TTSEngine === 'tts-engine-kokoro'}
 			{#if TTSModel}
 				<div>
 					<div class=" mb-2.5 text-sm font-medium">{$i18n.t('Set Voice')}</div>
@@ -335,7 +336,7 @@
 						<Spinner className="size-4" />
 
 						<div class=" text-sm font-medium shimmer">
-							{$i18n.t('Loading Kokoro.js...')}
+							{$i18n.t('Loading Kokoro...')}
 							{TTSModelProgress && TTSModelProgress.status === 'progress'
 								? `(${Math.round(TTSModelProgress.progress * 10) / 10}%)`
 								: ''}
