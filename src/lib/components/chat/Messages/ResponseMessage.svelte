@@ -1037,7 +1037,7 @@
 									</Tooltip>
 								{/if}
 
-								{#if $config?.features.enable_image_generation && ($user?.role === 'admin' || $user?.permissions?.features?.image_generation) && !readOnly}
+								<!-- {#if $config?.features.enable_image_generation && ($user?.role === 'admin' || $user?.permissions?.features?.image_generation) && !readOnly}
 									<Tooltip content={$i18n.t('Generate Image')} placement="bottom">
 										<button
 											aria-label={$i18n.t('Generate Image')}
@@ -1102,7 +1102,7 @@
 											{/if}
 										</button>
 									</Tooltip>
-								{/if}
+								{/if} -->
 
 								{#if message.usage}
 									<Tooltip
