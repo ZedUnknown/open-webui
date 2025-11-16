@@ -200,7 +200,6 @@
 				<div class="flex items-center relative rounded-sm">
 					<select
 						class="
-						bg-gray-900 
 						dark:bg-gray-900
 						text-xs py-2 px-3 pr-8
 						text-left

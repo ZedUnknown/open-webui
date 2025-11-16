@@ -229,13 +229,9 @@
 					}
 				}}
 			>
-				<div
-					class=" w-full font-medium flex items-center justify-between gap-2 {attributes?.done &&
-					attributes?.done !== 'true'
-						? 'shimmer'
-						: ''}
-			"
-				>
+				<div class="
+					w-full font-medium flex items-center justify-between gap-2 
+					{attributes?.done && attributes?.done !== 'true' ? 'shimmer' : ''}">
 					{#if attributes?.done && attributes?.done !== 'true'}
 						<div>
 							<Spinner className="size-4" />
@@ -310,7 +306,7 @@
 
 					{#if grow}
 						{#if open && !hide}
-							<div
+							<div 
 								transition:slide={{ duration: 300, easing: quintOut, axis: 'y' }}
 								on:pointerup={(e) => {
 									e.stopPropagation();
@@ -326,7 +322,8 @@
 
 		{#if !grow}
 			{#if open && !hide}
-				<div transition:slide={{ duration: 300, easing: quintOut, axis: 'y' }}>
+				{console.log('open', open)}
+				<div transition:slide={{ duration: 600, easing: quintOut, axis: 'y' }}>
 					<slot name="content" />
 				</div>
 			{/if}
