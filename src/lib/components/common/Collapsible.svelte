@@ -264,7 +264,7 @@
 									})}
 								{/if}
 							{:else}
-								{$i18n.t(`Thinking... ${halfOpen}`)}
+								{$i18n.t('Thinking...')}
 							{/if}
 						{:else if attributes?.type === 'code_interpreter'}
 							{#if attributes?.done === 'true'}

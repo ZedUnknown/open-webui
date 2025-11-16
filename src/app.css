@@ -110,11 +110,11 @@ textarea::placeholder {
 	-webkit-app-region: no-drag;
 }
 
-blockquote p {
+blockquote * {
 	color: rgb(0, 0, 0, 0.6);
 }
 
-.dark blockquote p {
+.dark blockquote * {
 	color: rgb(255, 255, 255, 0.6);
 }
 
