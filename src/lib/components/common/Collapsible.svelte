@@ -61,6 +61,8 @@
 
 	$: onChange(open);
 
+	$: halfOpen = !open && attributes?.done !== 'true';
+
 	const collapsibleId = uuidv4();
 
 	function parseJSONString(str) {
@@ -87,6 +89,15 @@
 		}
 	}
 </script>
+
+<style>
+.half {
+	display: flex;
+    flex-direction: column-reverse;
+	max-height: 200px;
+	mask-image: linear-gradient(to top, black 60%, transparent);
+}
+</style>
 
 <div {id} class={className}>
 	{#if attributes?.type === 'tool_calls'}
@@ -253,7 +264,7 @@
 									})}
 								{/if}
 							{:else}
-								{$i18n.t('Thinking...')}
+								{$i18n.t(`Thinking... ${halfOpen}`)}
 							{/if}
 						{:else if attributes?.type === 'code_interpreter'}
 							{#if attributes?.done === 'true'}
@@ -321,9 +332,12 @@
 		{/if}
 
 		{#if !grow}
-			{#if open && !hide}
-				{console.log('open', open)}
-				<div transition:slide={{ duration: 600, easing: quintOut, axis: 'y' }}>
+			{console.log('open', open)}
+			{#if open || halfOpen}
+				<div
+					class="open {open ? '' : 'half'}"
+					transition:slide={{ duration: 600, easing: quintOut, axis: 'y' }}
+				>
 					<slot name="content" />
 				</div>
 			{/if}
