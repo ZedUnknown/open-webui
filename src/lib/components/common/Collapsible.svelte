@@ -61,6 +61,8 @@
 
 	$: onChange(open);
 
+	$: halfOpen = !open && attributes?.done !== 'true';
+
 	const collapsibleId = uuidv4();
 
 	function parseJSONString(str) {
@@ -87,6 +89,15 @@
 		}
 	}
 </script>
+
+<style>
+.half {
+	display: flex;
+    flex-direction: column-reverse;
+	max-height: 200px;
+	mask-image: linear-gradient(to top, black 60%, transparent);
+}
+</style>
 
 <div {id} class={className}>
 	{#if attributes?.type === 'tool_calls'}
@@ -229,13 +240,9 @@
 					}
 				}}
 			>
-				<div
-					class=" w-full font-medium flex items-center justify-between gap-2 {attributes?.done &&
-					attributes?.done !== 'true'
-						? 'shimmer'
-						: ''}
-			"
-				>
+				<div class="
+					w-full font-medium flex items-center justify-between gap-2 
+					{attributes?.done && attributes?.done !== 'true' ? 'shimmer' : ''}">
 					{#if attributes?.done && attributes?.done !== 'true'}
 						<div>
 							<Spinner className="size-4" />
@@ -310,7 +317,7 @@
 
 					{#if grow}
 						{#if open && !hide}
-							<div
+							<div 
 								transition:slide={{ duration: 300, easing: quintOut, axis: 'y' }}
 								on:pointerup={(e) => {
 									e.stopPropagation();
@@ -325,8 +332,12 @@
 		{/if}
 
 		{#if !grow}
-			{#if open && !hide}
-				<div transition:slide={{ duration: 300, easing: quintOut, axis: 'y' }}>
+			{console.log('open', open)}
+			{#if open || halfOpen}
+				<div
+					class="open {open ? '' : 'half'}"
+					transition:slide={{ duration: 600, easing: quintOut, axis: 'y' }}
+				>
 					<slot name="content" />
 				</div>
 			{/if}

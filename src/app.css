@@ -110,6 +110,14 @@ textarea::placeholder {
 	-webkit-app-region: no-drag;
 }
 
+blockquote * {
+	color: rgb(0, 0, 0, 0.6);
+}
+
+.dark blockquote * {
+	color: rgb(255, 255, 255, 0.6);
+}
+
 li p {
 	display: inline;
 }
