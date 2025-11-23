@@ -57,10 +57,6 @@ math {
 	margin-top: 1rem;
 }
 
-.hljs {
-	@apply rounded-lg;
-}
-
 input::placeholder {
 	direction: auto;
 }
@@ -566,55 +562,32 @@ input[type='number'] {
 }
 
 /* Code styling */
-.hljs-comment,
-.hljs-quote {
-	color: #616161;
+.hljs {
+	@apply rounded-lg;
 }
 
-.hljs-variable,
-.hljs-template-variable,
-.hljs-attribute,
-.hljs-tag,
-.hljs-regexp,
-.hljs-link,
-.hljs-name,
-.hljs-selector-id,
-.hljs-selector-class {
-	color: #f98181;
+.hljs .num {
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+    width: 3.5em;
+    padding-right: 1.5em;
+    text-align: right;
+    user-select: none;
+    opacity: 0.6;
 }
 
-.hljs-number,
-.hljs-meta,
-.hljs-built_in,
-.hljs-builtin-name,
-.hljs-literal,
-.hljs-type,
-.hljs-params {
-	color: #fbbc88;
+code.line {
+    display: flex;
+    flex-direction: row;
 }
 
-.hljs-string,
-.hljs-symbol,
-.hljs-bullet {
-	color: #b9f18d;
+.code {
+    flex-grow: 1;
+    min-width: 0;
 }
 
-.hljs-title,
-.hljs-section {
-	color: #faf594;
-}
-
-.hljs-keyword,
-.hljs-selector-tag {
-	color: #70cff8;
-}
-
-.hljs-emphasis {
-	font-style: italic;
-}
-
-.hljs-strong {
-	font-weight: 700;
+.codeblock-buttons:hover {
+	text-decoration: underline;
 }
 
 /* Table styling for tiptap editors */

@@ -1,5 +1,7 @@
 <script lang="ts">
 	import hljs from 'highlight.js';
+	import 'highlight.js/styles/base16/onedark.min.css';
+
 	import { toast } from 'svelte-sonner';
 	import { getContext, onMount, tick, onDestroy } from 'svelte';
 	import { config } from '$lib/stores';
@@ -13,7 +15,6 @@
 		renderVegaVisualization
 	} from '$lib/utils';
 
-	import 'highlight.js/styles/github-dark.min.css';
 
 	import CodeEditor from '$lib/components/common/CodeEditor.svelte';
 	import SvgPanZoom from '$lib/components/common/SVGPanZoom.svelte';
@@ -135,6 +136,13 @@
 		// If none of the above conditions met, it's probably not Python code
 		return false;
 	};
+
+	// highlighted HTML with line numbers
+	$: numberedCode = code ? hljs.highlightAuto(code, hljs.getLanguage(lang)?.aliases).value
+			.split('\n')
+			.map((line, index) => `<span class="line"><span class="num hljs-comment">${index + 1}</span><span class="code">${line || '&nbsp;'}</span></span>`)
+			.join('\n')
+		: '';
 
 	const executePython = async (code) => {
 		result = null;
@@ -406,8 +414,9 @@
 		if (token) {
 			onUpdate(token);
 		}
+		// addLineNumbers();
+		
 	});
-
 	onDestroy(() => {
 		if (pyodideWorker) {
 			pyodideWorker.terminate();
@@ -430,9 +439,7 @@
 			{:else}
 				<div class="p-3">
 					{#if renderError}
-						<div
-							class="flex gap-2.5 border px-4 py-3 border-red-600/10 bg-red-600/10 rounded-2xl mb-2"
-						>
+						<div class="flex gap-2.5 border px-4 py-3 border-red-600/10 bg-red-600/10 rounded-2xl mb-2">
 							{renderError}
 						</div>
 					{/if}
@@ -440,18 +447,14 @@
 				</div>
 			{/if}
 		{:else}
-			<div
-				class="absolute left-0 right-0 py-2.5 pr-3 text-text-300 pl-4.5 text-xs font-medium dark:text-white"
-			>
+			<div class="absolute left-0 right-0 py-2.5 pr-3 text-text-300 pl-4.5 text-xs font-medium dark:text-white">
 				{lang}
 			</div>
 
-			<div
-				class="sticky {stickyButtonsClassName} left-0 right-0 py-2 pr-3 flex items-center justify-end w-full z-10 text-xs text-black dark:text-white"
-			>
+			<div class="sticky {stickyButtonsClassName} left-0 right-0 py-2 pr-3 flex items-center justify-end w-full z-10 text-xs text-black dark:text-white">
 				<div class="flex items-center gap-0.5">
 					<button
-						class="flex gap-1 items-center bg-none border-none transition rounded-md px-1.5 py-0.5 bg-white dark:bg-black"
+						class="hljs codeblock-buttons flex gap-1 items-center bg-none border-none transition rounded-md px-1.5 py-0.5"
 						on:click={collapseCodeBlock}
 					>
 						<div class=" -translate-y-[0.5px]">
@@ -466,13 +469,13 @@
 					{#if ($config?.features?.enable_code_execution ?? true) && (lang.toLowerCase() === 'python' || lang.toLowerCase() === 'py' || (lang === '' && checkPythonCode(code)))}
 						{#if executing}
 							<div
-								class="run-code-button bg-none border-none p-0.5 cursor-not-allowed bg-white dark:bg-black"
+								class="hljs run-code-button bg-none border-none p-0.5 cursor-not-allowed"
 							>
 								{$i18n.t('Running')}
 							</div>
 						{:else if run}
 							<button
-								class="flex gap-1 items-center run-code-button bg-none border-none transition rounded-md px-1.5 py-0.5 bg-white dark:bg-black"
+								class="hljs codeblock-buttons flex gap-1 items-center run-code-button bg-none border-none transition rounded-md px-1.5 py-0.5"
 								on:click={async () => {
 									code = _code;
 									await tick();
@@ -488,7 +491,7 @@
 
 					{#if save}
 						<button
-							class="save-code-button bg-none border-none transition rounded-md px-1.5 py-0.5 bg-white dark:bg-black"
+							class="hljs codeblock-buttons save-code-button bg-none border-none transition rounded-md px-1.5 py-0.5"
 							on:click={saveCode}
 						>
 							{saved ? $i18n.t('Saved') : $i18n.t('Save')}
@@ -496,13 +499,13 @@
 					{/if}
 
 					<button
-						class="copy-code-button bg-none border-none transition rounded-md px-1.5 py-0.5 bg-white dark:bg-black"
+						class="hljs codeblock-buttons copy-code-button bg-none border-none transition rounded-md px-1.5 py-0.5"
 						on:click={copyCode}>{copied ? $i18n.t('Copied') : $i18n.t('Copy')}</button
 					>
 
 					{#if preview && ['html', 'svg'].includes(lang)}
 						<button
-							class="flex gap-1 items-center run-code-button bg-none border-none transition rounded-md px-1.5 py-0.5 bg-white dark:bg-black"
+							class="hljs codeblock-buttons flex gap-1 items-center run-code-button bg-none border-none transition rounded-md px-1.5 py-0.5"
 							on:click={previewCode}
 						>
 							<div>
@@ -514,13 +517,12 @@
 			</div>
 
 			<div
-				class="language-{lang} rounded-t-3xl -mt-9 {editorClassName
+				class="hljs language-{lang} rounded-t-3xl -mt-9 {editorClassName
 					? editorClassName
 					: executing || stdout || stderr || result
 						? ''
 						: 'rounded-b-3xl'} overflow-hidden"
 			>
-				<div class=" pt-8 bg-white dark:bg-black"></div>
 
 				{#if !collapsed}
 					{#if edit}
@@ -536,21 +538,12 @@
 							}}
 						/>
 					{:else}
-						<pre
-							class=" hljs p-4 px-5 overflow-x-auto"
-							style="border-top-left-radius: 0px; border-top-right-radius: 0px; {(executing ||
-								stdout ||
-								stderr ||
-								result) &&
-								'border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;'}"><code
-								class="language-{lang} rounded-t-none whitespace-pre text-sm"
-								>{@html hljs.highlightAuto(code, hljs.getLanguage(lang)?.aliases).value ||
-									code}</code
-							></pre>
+						<pre class="py-0 overflow-x-auto" style="border-top-left-radius: 0px; border-top-right-radius: 0px; {(executing || stdout || stderr || result) && 'border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;'}">
+							<code class="hljs language-{lang} rounded-t-none whitespace-pre text-sm">{@html numberedCode}</code></pre>
 					{/if}
 				{:else}
 					<div
-						class="bg-white dark:bg-black dark:text-white rounded-b-3xl! pt-0.5 pb-3 px-4 flex flex-col gap-2 text-xs"
+						class="hljs rounded-b-3xl! pt-0.5 pb-3 px-4 flex flex-col gap-2 text-xs"
 					>
 						<span class="text-gray-500 italic">
 							{$i18n.t('{{COUNT}} hidden lines', {
