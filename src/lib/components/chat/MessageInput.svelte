@@ -10,6 +10,7 @@
 
 	import { onMount, tick, getContext, createEventDispatcher, onDestroy } from 'svelte';
 	const dispatch = createEventDispatcher();
+	import { stopAllAudio } from '$lib/utils/tts';
 
 	import {
 		type Model,
@@ -916,7 +917,11 @@
 	});
 
 	onDestroy(() => {
-		console.log('destroy');
+		console.log('destroy from MessageInput.svelte');
+		
+		// stop all tts only when the entire page is destroyed
+		stopAllAudio();
+
 		window.removeEventListener('keydown', onKeyDown);
 		window.removeEventListener('keyup', onKeyUp);
 
@@ -1069,14 +1074,9 @@
 									<div class="flex items-center justify-between w-full">
 										<div class="pl-[1px] flex items-center gap-2 text-sm dark:text-gray-500">
 											<img
-												crossorigin="anonymous"
 												alt="model profile"
 												class="size-3.5 max-w-[28px] object-cover rounded-full"
-												src={$models.find((model) => model.id === atSelectedModel.id)?.info?.meta
-													?.profile_image_url ??
-													($i18n.language === 'dg-DG'
-														? `${WEBUI_BASE_URL}/doge.png`
-														: `${WEBUI_BASE_URL}/static/favicon.png`)}
+												src={`${WEBUI_API_BASE_URL}/models/model/profile/image?id=${$models.find((model) => model.id === atSelectedModel.id).id}&lang=${$i18n.language}`}
 											/>
 											<div class="translate-y-[0.5px]">
 												<span class="">{atSelectedModel.name}</span>

@@ -439,7 +439,9 @@
 			{:else}
 				<div class="p-3">
 					{#if renderError}
-						<div class="flex gap-2.5 border px-4 py-3 border-red-600/10 bg-red-600/10 rounded-2xl mb-2">
+						<div
+							class="flex gap-2.5 border px-4 py-3 border-red-600/10 bg-red-600/10 rounded-2xl mb-2"
+						>
 							{renderError}
 						</div>
 					{/if}
