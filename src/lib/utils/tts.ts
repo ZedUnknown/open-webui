@@ -55,6 +55,7 @@ export const stopAllAudio = () => {
             isLoading: false,
             audioParts: {},
         }));
+        console.log("All TTS playback has been stopped.")
     } catch (error) {
         console.error(error);
     }

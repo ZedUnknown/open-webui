@@ -10,6 +10,7 @@
 
 	import { onMount, tick, getContext, createEventDispatcher, onDestroy } from 'svelte';
 	const dispatch = createEventDispatcher();
+	import { stopAllAudio } from '$lib/utils/tts';
 
 	import {
 		type Model,
@@ -916,7 +917,11 @@
 	});
 
 	onDestroy(() => {
-		console.log('destroy');
+		console.log('destroy from MessageInput.svelte');
+		
+		// stop all tts only when the entire page is destroyed
+		stopAllAudio();
+
 		window.removeEventListener('keydown', onKeyDown);
 		window.removeEventListener('keyup', onKeyUp);
 
