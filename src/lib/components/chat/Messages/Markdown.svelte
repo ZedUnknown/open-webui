@@ -50,7 +50,7 @@
 		extensions: [mentionExtension({ triggerChar: '@' }), mentionExtension({ triggerChar: '#' })]
 	});
 
-	// Clean up timer on component destroy
+	// clean up timer on component destroy
 	import { onDestroy } from 'svelte';
 	onDestroy(() => {
 		if (bufferTimer) {
@@ -94,6 +94,7 @@
 			// completed content, process immediately
 			if (done) {
 				if (bufferTimer) {
+					console.log('Clearing buffer timer at the end');
 					clearTimeout(bufferTimer);
 					bufferTimer = null;
 				}
@@ -114,6 +115,7 @@
 				contentBuffer = content;
 				
 				if (bufferTimer) {
+					console.log('Clearing buffer timer');
 					clearTimeout(bufferTimer);
 				}
 				
