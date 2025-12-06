@@ -18,6 +18,7 @@
 	export let model = null;
 	export let save = false;
 	export let preview = false;
+	export let waitTillUnclosedSyntax = true;
 
 	export let editCodeBlock = true;
 	export let topPadding = false;
@@ -33,8 +34,6 @@
 	export let onTaskClick = () => {};
 
 	let tokens = [];
-	let contentBuffer = '';
-	let bufferTimer = null;
 
 	const options = {
 		throwOnError: false,
@@ -58,78 +57,58 @@
 		}
 	});
 
-    // check if markdown content has unclosed syntax
-    function hasUnclosedMarkdown(content) {
+	// check if markdown content has unclosed syntax
+	function hasUnclosedMarkdown(content) {
 		// letting pass for unclosed ``` (code blocks)
-        const codeBlockCount = (content.match(/```/g) || []).length;
-        if (codeBlockCount % 2 !== 0) return false;
+		const codeBlockCount = (content.match(/```/g) || []).length;
+		if (codeBlockCount % 2 !== 0) return false;
 
-        // unclosed ** (bold)
-        const boldCount = (content.match(/\*\*/g) || []).length;
-        if (boldCount % 2 !== 0) return true;
-        
-        // unclosed * (italic)
-        const italicCount = (content.match(/\*/g) || []).length;
-        if (italicCount % 2 !== 0) return true;
-        
-        // unclosed _ (underline)
-        const underlineCount = (content.match(/_/g) || []).length;
-        if (underlineCount % 2 !== 0) return true;
-        
-        // unclosed [] (links)
-        const linkOpen = (content.match(/\[/g) || []).length;
-        const linkClose = (content.match(/\]/g) || []).length;
-        if (linkOpen > linkClose) return true;
-        
-        // unclosed () (used in links)
-        const parenOpen = (content.match(/\(/g) || []).length;
-        const parenClose = (content.match(/\)/g) || []).length;
-        if (parenOpen > parenClose) return true;
-        
-        // unclosed ` (inline code)
-        const inlineCodeCount = (content.match(/`/g) || []).length;
-        if (inlineCodeCount % 2 !== 0) return true;
-        
-        return false;
-    }
+		// unclosed ** (bold)
+		const boldCount = (content.match(/\*\*/g) || []).length;
+		if (boldCount % 2 !== 0) return true;
+		
+		// unclosed * (italic)
+		const italicCount = (content.match(/\*/g) || []).length;
+		if (italicCount % 2 !== 0) return true;
+		
+		// unclosed _ (underline)
+		const underlineCount = (content.match(/_/g) || []).length;
+		if (underlineCount % 2 !== 0) return true;
+		
+		// unclosed [] (links)
+		const linkOpen = (content.match(/\[/g) || []).length;
+		const linkClose = (content.match(/\]/g) || []).length;
+		if (linkOpen > linkClose) return true;
+		
+		// unclosed () (used in links)
+		const parenOpen = (content.match(/\(/g) || []).length;
+		const parenClose = (content.match(/\)/g) || []).length;
+		if (parenOpen > parenClose) return true;
+		
+		// unclosed ` (inline code)
+		const inlineCodeCount = (content.match(/`/g) || []).length;
+		if (inlineCodeCount % 2 !== 0) return true;
+		
+		return false;
+	}
 
+	let contentBuffer = '';
+	let bufferTimer = null;
+	
 	$: {
-		if (content !== undefined) {
-			// completed content, process immediately
-			if (done) {
-				if (bufferTimer) {
-					console.log('Clearing buffer timer at the end');
-					clearTimeout(bufferTimer);
-					bufferTimer = null;
-				}
-				
-				try {
-					const processedContent = replaceTokens(
-						processResponseContent(content), 
-						model?.name, 
-						$user?.name
-					);
-					tokens = marked.lexer(processedContent);
-				} catch (e) {
-					console.error('Error processing markdown:', e);
-					tokens = [];
-				}
-			} else {
-				// streaming content, use adaptive buffering
-				contentBuffer = content;
-				
-				if (bufferTimer) {
-					console.log('Clearing buffer timer');
-					clearTimeout(bufferTimer);
-				}
-				
-				// buffer time based on markdown syntax completeness
-				const bufferTime = hasUnclosedMarkdown(content) ? 200 : 20;
-				
-				bufferTimer = setTimeout(() => {
+		if (waitTillUnclosedSyntax) {
+			if (content !== undefined) {
+				// completed content, process immediately
+				if (done) {
+					if (bufferTimer) {
+						console.log('Clearing buffer timer at the end');
+						clearTimeout(bufferTimer);
+						bufferTimer = null;
+					}
+					
 					try {
 						const processedContent = replaceTokens(
-							processResponseContent(contentBuffer), 
+							processResponseContent(content), 
 							model?.name, 
 							$user?.name
 						);
@@ -138,12 +117,47 @@
 						console.error('Error processing markdown:', e);
 						tokens = [];
 					}
-				}, bufferTime);
+				} else {
+					// streaming content, use adaptive buffering
+					contentBuffer = content;
+					
+					if (bufferTimer) {
+						console.log('Clearing buffer timer');
+						clearTimeout(bufferTimer);
+					}
+					
+					// buffer time based on markdown syntax completeness
+					const bufferTime = hasUnclosedMarkdown(content) ? 200 : 20;
+					
+					bufferTimer = setTimeout(() => {
+						try {
+							const processedContent = replaceTokens(
+								processResponseContent(contentBuffer), 
+								model?.name, 
+								$user?.name
+							);
+							tokens = marked.lexer(processedContent);
+						} catch (e) {
+							console.error('Error processing markdown:', e);
+							tokens = [];
+						}
+					}, bufferTime);
+				}
+			} else {
+				tokens = [];
 			}
+
 		} else {
-			tokens = [];
+			(async () => {
+				if (content) {
+					tokens = marked.lexer(
+						replaceTokens(processResponseContent(content), model?.name, $user?.name)
+					);
+				}
+			})();
 		}
 	}
+
 </script>
 
 {#key id}
