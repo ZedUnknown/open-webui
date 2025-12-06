@@ -58,36 +58,40 @@
 		}
 	});
 
-	// check if markdown content has unclosed syntax
-	function hasUnclosedMarkdown(content) {
-		// Check for unclosed ** (bold)
-		const boldCount = (content.match(/\*\*/g) || []).length;
-		if (boldCount % 2 !== 0) return true;
-		
-		// Check for unclosed * (italic)
-		const italicCount = (content.match(/\*/g) || []).length;
-		if (italicCount % 2 !== 0) return true;
-		
-		// Check for unclosed [] (links)
-		const linkOpen = (content.match(/\[/g) || []).length;
-		const linkClose = (content.match(/\]/g) || []).length;
-		if (linkOpen > linkClose) return true;
-		
-		// Check for unclosed () (used in links)
-		const parenOpen = (content.match(/\(/g) || []).length;
-		const parenClose = (content.match(/\)/g) || []).length;
-		if (parenOpen > parenClose) return true;
-		
-		// Check for unclosed ` (inline code)
-		const inlineCodeCount = (content.match(/`/g) || []).length;
-		if (inlineCodeCount % 2 !== 0) return true;
-		
-		// Check for unclosed ``` (code blocks)
-		const codeBlockCount = (content.match(/```/g) || []).length;
-		if (codeBlockCount % 2 !== 0) return true;
-		
-		return false;
-	}
+    // check if markdown content has unclosed syntax
+    function hasUnclosedMarkdown(content) {
+		// letting pass for unclosed ``` (code blocks)
+        const codeBlockCount = (content.match(/```/g) || []).length;
+        if (codeBlockCount % 2 !== 0) return false;
+
+        // unclosed ** (bold)
+        const boldCount = (content.match(/\*\*/g) || []).length;
+        if (boldCount % 2 !== 0) return true;
+        
+        // unclosed * (italic)
+        const italicCount = (content.match(/\*/g) || []).length;
+        if (italicCount % 2 !== 0) return true;
+        
+        // unclosed _ (underline)
+        const underlineCount = (content.match(/_/g) || []).length;
+        if (underlineCount % 2 !== 0) return true;
+        
+        // unclosed [] (links)
+        const linkOpen = (content.match(/\[/g) || []).length;
+        const linkClose = (content.match(/\]/g) || []).length;
+        if (linkOpen > linkClose) return true;
+        
+        // unclosed () (used in links)
+        const parenOpen = (content.match(/\(/g) || []).length;
+        const parenClose = (content.match(/\)/g) || []).length;
+        if (parenOpen > parenClose) return true;
+        
+        // unclosed ` (inline code)
+        const inlineCodeCount = (content.match(/`/g) || []).length;
+        if (inlineCodeCount % 2 !== 0) return true;
+        
+        return false;
+    }
 
 	$: {
 		if (content !== undefined) {
