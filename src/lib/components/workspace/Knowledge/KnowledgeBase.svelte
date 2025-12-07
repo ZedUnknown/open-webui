@@ -35,7 +35,7 @@
 	} from '$lib/apis/knowledge';
 	import { blobToFile } from '$lib/utils';
 
-	import Spinner from '$lib/components/common/Spinner.svelte';
+	import Spinner from '$lib/components/icons/animated/Spinner.svelte';
 	import Files from './KnowledgeBase/Files.svelte';
 	import AddFilesPlaceholder from '$lib/components/AddFilesPlaceholder.svelte';
 

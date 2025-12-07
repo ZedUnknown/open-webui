@@ -432,7 +432,7 @@
 		{#if ['mermaid', 'vega', 'vega-lite'].includes(lang)}
 			{#if renderHTML}
 				<SvgPanZoom
-					className=" rounded-3xl max-h-fit overflow-hidden"
+					className=" max-h-fit overflow-hidden"
 					svg={renderHTML}
 					content={_token.text}
 				/>
@@ -449,14 +449,13 @@
 				</div>
 			{/if}
 		{:else}
-			<div class="absolute left-0 right-0 py-2.5 pr-3 text-text-300 pl-4.5 text-xs font-medium dark:text-white">
-				{lang}
-			</div>
-
-			<div class="sticky {stickyButtonsClassName} left-0 right-0 py-2 pr-3 flex items-center justify-end w-full z-10 text-xs text-black dark:text-white">
-				<div class="flex items-center gap-0.5">
+			<div 
+				class="sticky {stickyButtonsClassName} left-0 right-0 py-2 pr-3 flex items-center justify-end ml-auto w-fit z-10 text-xs text-black dark:text-white"
+				style="{code.split('\n').length <= 1 ? 'padding-top: 5px; padding-bottom: 12px;' : ''}"
+			>
+				<div class="flex items-center">
 					<button
-						class="hljs codeblock-buttons flex gap-1 items-center bg-none border-none transition rounded-md px-1.5 py-0.5"
+						class="codeblock-buttons flex gap-1 items-center rounded-tr-none rounded-br-none rounded-tl-md rounded-bl-md transition px-1.5 py-0.5"
 						on:click={collapseCodeBlock}
 					>
 						<div class=" -translate-y-[0.5px]">
@@ -471,13 +470,13 @@
 					{#if ($config?.features?.enable_code_execution ?? true) && (lang.toLowerCase() === 'python' || lang.toLowerCase() === 'py' || (lang === '' && checkPythonCode(code)))}
 						{#if executing}
 							<div
-								class="hljs run-code-button bg-none border-none p-0.5 cursor-not-allowed"
+								class="run-code-button bg-none border-none p-0.5 cursor-not-allowed"
 							>
 								{$i18n.t('Running')}
 							</div>
 						{:else if run}
 							<button
-								class="hljs codeblock-buttons flex gap-1 items-center run-code-button bg-none border-none transition rounded-md px-1.5 py-0.5"
+								class="codeblock-buttons flex gap-1 items-center run-code-button transition px-1.5 py-0.5"
 								on:click={async () => {
 									code = _code;
 									await tick();
@@ -493,39 +492,40 @@
 
 					{#if save}
 						<button
-							class="hljs codeblock-buttons save-code-button bg-none border-none transition rounded-md px-1.5 py-0.5"
+							class="codeblock-buttons save-code-button transition px-1.5 py-0.5"
 							on:click={saveCode}
 						>
 							{saved ? $i18n.t('Saved') : $i18n.t('Save')}
 						</button>
 					{/if}
 
-					<button
-						class="hljs codeblock-buttons copy-code-button bg-none border-none transition rounded-md px-1.5 py-0.5"
-						on:click={copyCode}>{copied ? $i18n.t('Copied') : $i18n.t('Copy')}</button
-					>
-
+					
 					{#if preview && ['html', 'svg'].includes(lang)}
+						<!-- if preview button is enabled, copy button doesn't have rounded corners -->
 						<button
-							class="hljs codeblock-buttons flex gap-1 items-center run-code-button bg-none border-none transition rounded-md px-1.5 py-0.5"
+							class="codeblock-buttons copy-code-button transition px-1.5 py-0.5"
+							on:click={copyCode}>{copied ? $i18n.t('Copied') : $i18n.t('Copy')}</button
+						>
+						<button
+							class="codeblock-buttons flex gap-1 items-center run-code-button rounded-tl-none rounded-bl-none rounded-tr-md rounded-br-md transition px-1.5 py-0.5"
 							on:click={previewCode}
 						>
 							<div>
 								{$i18n.t('Preview')}
 							</div>
 						</button>
+					{:else} 
+						<!-- if preview button is disabled, copy button has rounded corners -->
+						<button
+							class="codeblock-buttons copy-code-button rounded-tl-none rounded-bl-none rounded-tr-md rounded-br-md transition px-1.5 py-0.5"
+							on:click={copyCode}>{copied ? $i18n.t('Copied') : $i18n.t('Copy')}</button>
 					{/if}
 				</div>
 			</div>
 
-			<div
-				class="hljs language-{lang} rounded-t-3xl -mt-9 {editorClassName
-					? editorClassName
-					: executing || stdout || stderr || result
-						? ''
-						: 'rounded-b-3xl'} overflow-hidden"
+			<div class="language-{lang} rounded-t-3xl -mt-9 z-0 overflow-hidden relative"
+				class:rounded-b-3xl={!editorClassName && !(executing || stdout || stderr || result)}
 			>
-
 				{#if !collapsed}
 					{#if edit}
 						<CodeEditor
@@ -537,6 +537,7 @@
 							}}
 							onChange={(value) => {
 								_code = value;
+
 							}}
 						/>
 					{:else}
@@ -544,9 +545,8 @@
 							<code class="hljs language-{lang} rounded-t-none whitespace-pre text-sm">{@html numberedCode}</code></pre>
 					{/if}
 				{:else}
-					<div
-						class="hljs rounded-b-3xl! pt-0.5 pb-3 px-4 flex flex-col gap-2 text-xs"
-					>
+					<div class="absolute top-0 left-0 right-0 py-2.5 pr-3 text-text-300 pl-4.5 text-xs font-medium dark:text-white z-10">{lang}</div>
+					<div class="pt-10 pb-3 px-4 flex flex-col gap-2 text-xs">
 						<span class="text-gray-500 italic">
 							{$i18n.t('{{COUNT}} hidden lines', {
 								COUNT: code.split('\n').length
@@ -564,7 +564,7 @@
 
 				{#if executing || stdout || stderr || result || files}
 					<div
-						class="bg-gray-50 dark:bg-black dark:text-white rounded-b-3xl! py-4 px-4 flex flex-col gap-2"
+						class="output-block dark:text-white rounded-b-3xl py-4 px-4 flex flex-col gap-2"
 					>
 						{#if executing}
 							<div class=" ">

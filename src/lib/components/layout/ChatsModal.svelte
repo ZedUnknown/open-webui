@@ -15,7 +15,7 @@
 	import Tooltip from '$lib/components/common/Tooltip.svelte';
 	import ConfirmDialog from '$lib/components/common/ConfirmDialog.svelte';
 
-	import Spinner from '../common/Spinner.svelte';
+	import Spinner from '../icons/animated/Spinner.svelte';
 	import Loader from '../common/Loader.svelte';
 	import XMark from '../icons/XMark.svelte';
 	import ChevronUp from '../icons/ChevronUp.svelte';

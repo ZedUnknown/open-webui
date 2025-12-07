@@ -217,16 +217,20 @@
 		{#if alert}
 			<AlertRenderer {token} {alert} />
 		{:else}
-			<blockquote dir="auto">
-				<svelte:self
-					id={`${id}-${tokenIdx}`}
-					tokens={token.tokens}
-					{done}
-					{editCodeBlock}
-					{onTaskClick}
-					{sourceIds}
-					{onSourceClick}
-				/>
+			<blockquote dir="auto" id="reasoning-block">
+				<div id="reasoning-block-mask">
+					<div id="reasoning-block-content">
+						<svelte:self
+							id={`${id}-${tokenIdx}`}
+							tokens={token.tokens}
+							{done}
+							{editCodeBlock}
+							{onTaskClick}
+							{sourceIds}
+							{onSourceClick}
+						/>
+					</div>
+				</div>
 			</blockquote>
 		{/if}
 	{:else if token.type === 'list'}

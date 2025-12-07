@@ -3,7 +3,7 @@
 	import { getContext, onMount } from 'svelte';
 	const i18n = getContext('i18n');
 
-	import Spinner from '$lib/components/common/Spinner.svelte';
+	import Spinner from '$lib/components/icons/animated/Spinner.svelte';
 	import Modal from '$lib/components/common/Modal.svelte';
 	import General from './General.svelte';
 	import Permissions from './Permissions.svelte';

@@ -34,7 +34,9 @@
 
 	import ChevronUp from '../icons/ChevronUp.svelte';
 	import ChevronDown from '../icons/ChevronDown.svelte';
-	import Spinner from './Spinner.svelte';
+	import Spinner from '../icons/animated/Spinner.svelte';
+	import QwenThinking from '../icons/animated/QwenThinking.svelte';
+	import QwenThought from '../icons/QwenThought.svelte';
 	import CodeBlock from '../chat/Messages/CodeBlock.svelte';
 	import Markdown from '../chat/Messages/Markdown.svelte';
 	import Image from './Image.svelte';
@@ -44,8 +46,7 @@
 	export let open = false;
 
 	export let className = '';
-	export let buttonClassName =
-		'w-fit text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition';
+	export let buttonClassName = 'w-fit text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition';
 
 	export let id = '';
 	export let title = null;
@@ -61,7 +62,7 @@
 
 	$: onChange(open);
 
-	$: halfOpen = !open && attributes?.done !== 'true';
+	$: halfOpen = !open && attributes?.done !== 'true' && attributes?.type === 'reasoning';
 
 	const collapsibleId = uuidv4();
 
@@ -92,11 +93,24 @@
 
 <style>
 .half {
-	display: flex;
-    flex-direction: column-reverse;
-	max-height: 200px;
-	mask-image: linear-gradient(to top, black 60%, transparent);
+	display: block;
 }
+
+:global(.half #reasoning-block) {
+	position: relative;
+	padding-top: 1rem;
+	overflow: hidden;
+}
+
+:global(.half #reasoning-block-mask) {
+	display: flex;
+	flex-direction: column-reverse;
+	max-height: 200px;
+	overflow: hidden;
+	-webkit-mask-image: linear-gradient(to bottom, transparent, black 60%);
+	mask-image: linear-gradient(to bottom, transparent, black 60%);
+}
+
 </style>
 
 <div {id} class={className}>
@@ -244,10 +258,11 @@
 					w-full font-medium flex items-center justify-between gap-2 
 					{attributes?.done && attributes?.done !== 'true' ? 'shimmer' : ''}">
 					{#if attributes?.done && attributes?.done !== 'true'}
-						<div>
-							<Spinner className="size-4" />
-						</div>
+						<div><QwenThinking className="size-4" /></div>
+					{:else}
+						<div><QwenThought className="size-5" /></div>
 					{/if}
+					
 
 					<div class="">
 						{#if attributes?.type === 'reasoning'}

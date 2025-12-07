@@ -7,7 +7,7 @@
 	import Prompts from './Commands/Prompts.svelte';
 	import Knowledge from './Commands/Knowledge.svelte';
 	import Models from './Commands/Models.svelte';
-	import Spinner from '$lib/components/common/Spinner.svelte';
+	import Spinner from '$lib/components/icons/animated/Spinner.svelte';
 
 	import { onMount } from 'svelte';
 

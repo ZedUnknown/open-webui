@@ -12,7 +12,7 @@
 	} from '$lib/apis/audio';
 	import { config, settings } from '$lib/stores';
 
-	import Spinner from '$lib/components/common/Spinner.svelte';
+	import Spinner from '$lib/components/icons/animated/Spinner.svelte';
 	import SensitiveInput from '$lib/components/common/SensitiveInput.svelte';
 
 	import { TTS_RESPONSE_SPLIT } from '$lib/types';

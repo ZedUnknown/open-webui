@@ -31,7 +31,7 @@
 	import About from '$lib/components/chat/Settings/About.svelte';
 	import Banner from '$lib/components/common/Banner.svelte';
 	import Markdown from '$lib/components/chat/Messages/Markdown.svelte';
-	import Spinner from '$lib/components/common/Spinner.svelte';
+	import Spinner from '$lib/components/icons/animated/Spinner.svelte';
 	import ProfilePreview from '../Messages/Message/ProfilePreview.svelte';
 
 	const i18n = getContext('i18n');

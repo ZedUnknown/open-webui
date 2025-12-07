@@ -30,6 +30,134 @@
 	font-display: swap;
 }
 
+@font-face {
+	font-family: 'JetBrainsMono';
+	src: url('/assets/fonts/JetBrainsMono-Thin.ttf');
+	font-weight: 100;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'JetBrainsMono';
+	src: url('/assets/fonts/JetBrainsMono-ThinItalic.ttf');
+	font-weight: 100;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'JetBrainsMono';
+	src: url('/assets/fonts/JetBrainsMono-ExtraLight.ttf');
+	font-weight: 200;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'JetBrainsMono';
+	src: url('/assets/fonts/JetBrainsMono-ExtraLightItalic.ttf');
+	font-weight: 200;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'JetBrainsMono';
+	src: url('/assets/fonts/JetBrainsMono-Light.ttf');
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'JetBrainsMono';
+	src: url('/assets/fonts/JetBrainsMono-LightItalic.ttf');
+	font-weight: 300;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'JetBrainsMono';
+	src: url('/assets/fonts/JetBrainsMono-Regular.ttf');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'JetBrainsMono';
+	src: url('/assets/fonts/JetBrainsMono-Italic.ttf');
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'JetBrainsMono';
+	src: url('/assets/fonts/JetBrainsMono-Medium.ttf');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'JetBrainsMono';
+	src: url('/assets/fonts/JetBrainsMono-MediumItalic.ttf');
+	font-weight: 500;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'JetBrainsMono';
+	src: url('/assets/fonts/JetBrainsMono-SemiBold.ttf');
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'JetBrainsMono';
+	src: url('/assets/fonts/JetBrainsMono-SemiBoldItalic.ttf');
+	font-weight: 600;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'JetBrainsMono';
+	src: url('/assets/fonts/JetBrainsMono-Bold.ttf');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'JetBrainsMono';
+	src: url('/assets/fonts/JetBrainsMono-BoldItalic.ttf');
+	font-weight: 700;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'JetBrainsMono';
+	src: url('/assets/fonts/JetBrainsMono-ExtraBold.ttf');
+	font-weight: 800;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'JetBrainsMono';
+	src: url('/assets/fonts/JetBrainsMono-ExtraBoldItalic.ttf');
+	font-weight: 800;
+	font-style: italic;
+	font-display: swap;
+}
+
 /* --app-text-scale is updated via the UI Scale slider (Interface.svelte) */
 :root {
 	--app-text-scale: 1;
@@ -57,12 +185,6 @@ html {
 #sidebar-chat-item input {
 	/* editing state input height is kept in sync */
 	min-height: calc(20px * var(--app-text-scale, 1));
-}
-
-code {
-	/* white-space-collapse: preserve !important; */
-	overflow-x: auto;
-	width: auto;
 }
 
 .editor-selection {
@@ -98,16 +220,38 @@ textarea::placeholder {
 	@apply prose dark:prose-invert prose-headings:font-medium prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg prose-hr:my-4 prose-hr:border-gray-50 prose-hr:dark:border-gray-850 prose-p:my-1 prose-img:my-1 prose-headings:my-2 prose-pre:my-0 prose-table:my-1 prose-blockquote:my-0 prose-ul:my-1 prose-ol:my-1 prose-li:my-1 whitespace-pre-line text-sm;
 }
 
+/* changed reasoning block's border sides */
 .markdown-prose {
-	@apply prose dark:prose-invert prose-blockquote:border-s-gray-100 prose-blockquote:dark:border-gray-800 prose-blockquote:border-s-2 prose-blockquote:not-italic prose-blockquote:font-normal  prose-headings:font-semibold prose-hr:my-4 prose-hr:border-gray-50 prose-hr:dark:border-gray-850 prose-p:my-0 prose-img:my-1 prose-headings:my-1 prose-pre:my-0 prose-table:my-0 prose-blockquote:my-0 prose-ul:-my-0 prose-ol:-my-0 prose-li:-my-0 whitespace-pre-line;
+	@apply prose dark:prose-invert prose-blockquote:border-gray-200 prose-blockquote:dark:border-gray-800 prose-blockquote:border-2 prose-blockquote:not-italic prose-blockquote:font-normal  prose-headings:font-semibold prose-hr:my-4 prose-hr:border-gray-50 prose-hr:dark:border-gray-850 prose-p:my-0 prose-img:my-1 prose-headings:my-1 prose-pre:my-0 prose-table:my-0 prose-blockquote:my-0 prose-ul:-my-0 prose-ol:-my-0 prose-li:-my-0 whitespace-pre-line;
 }
 
 .markdown-prose-sm {
-	@apply text-sm prose dark:prose-invert prose-blockquote:border-s-gray-100 prose-blockquote:dark:border-gray-800 prose-blockquote:border-s-2 prose-blockquote:not-italic prose-blockquote:font-normal  prose-headings:font-semibold prose-hr:my-2  prose-hr:border-gray-50 prose-hr:dark:border-gray-850 prose-p:my-0 prose-img:my-1 prose-headings:my-1 prose-pre:my-0 prose-table:my-0 prose-blockquote:my-0 prose-ul:-my-0 prose-ol:-my-0 prose-li:-my-0 whitespace-pre-line;
+	@apply text-sm prose dark:prose-invert prose-blockquote:border-gray-200 prose-blockquote:dark:border-gray-800 prose-blockquote:border-2 prose-blockquote:not-italic prose-blockquote:font-normal  prose-headings:font-semibold prose-hr:my-2  prose-hr:border-gray-50 prose-hr:dark:border-gray-850 prose-p:my-0 prose-img:my-1 prose-headings:my-1 prose-pre:my-0 prose-table:my-0 prose-blockquote:my-0 prose-ul:-my-0 prose-ol:-my-0 prose-li:-my-0 whitespace-pre-line;
 }
 
 .markdown-prose-xs {
-	@apply text-xs prose dark:prose-invert prose-blockquote:border-s-gray-100 prose-blockquote:dark:border-gray-800 prose-blockquote:border-s-2 prose-blockquote:not-italic prose-blockquote:font-normal  prose-headings:font-semibold prose-hr:my-0.5  prose-hr:border-gray-50 prose-hr:dark:border-gray-850 prose-p:my-0 prose-img:my-1 prose-headings:my-1 prose-pre:my-0 prose-table:my-0 prose-blockquote:my-0 prose-ul:-my-0 prose-ol:-my-0 prose-li:-my-0 whitespace-pre-line;
+	@apply text-xs prose dark:prose-invert prose-blockquote:border-gray-200 prose-blockquote:dark:border-gray-800 prose-blockquote:border-2 prose-blockquote:not-italic prose-blockquote:font-normal  prose-headings:font-semibold prose-hr:my-0.5  prose-hr:border-gray-50 prose-hr:dark:border-gray-850 prose-p:my-0 prose-img:my-1 prose-headings:my-1 prose-pre:my-0 prose-table:my-0 prose-blockquote:my-0 prose-ul:-my-0 prose-ol:-my-0 prose-li:-my-0 whitespace-pre-line;
+}
+
+/* reasoning block */
+.markdown-prose blockquote,
+.markdown-prose-sm blockquote,
+.markdown-prose-xs blockquote {
+	display: block;
+	border-radius: 12px;
+	overflow: hidden;
+	padding: 1rem;
+	color: rgb(0, 0, 0, 0.6);
+	font-family: "JetBrainsMono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+	font-weight: 300;
+	font-size: .875rem;
+}
+
+/* reasoning block */
+.dark .markdown-prose blockquote,
+.dark .markdown-prose-sm blockquote,
+.dark .markdown-prose-xs blockquote { 
+	color: rgb(255, 255, 255, 0.6);
 }
 
 .markdown a {
@@ -129,14 +273,6 @@ textarea::placeholder {
 
 .no-drag-region {
 	-webkit-app-region: no-drag;
-}
-
-blockquote * {
-	color: rgb(0, 0, 0, 0.6);
-}
-
-.dark blockquote * {
-	color: rgb(255, 255, 255, 0.6);
 }
 
 li p {
@@ -304,11 +440,6 @@ input[type='number'] {
 	display: none;
 }
 
-.cm-editor {
-	height: 100%;
-	width: 100%;
-}
-
 .cm-scroller:active::-webkit-scrollbar-thumb,
 .cm-scroller:focus::-webkit-scrollbar-thumb,
 .cm-scroller:hover::-webkit-scrollbar-thumb {
@@ -327,12 +458,45 @@ input[type='number'] {
 	outline: none;
 }
 
+/* changed: background */
 .cm-gutters {
-	@apply !bg-white dark:!bg-black !border-none;
+	background: none;
+}
+
+.dark .cm-gutters {
+	background: none;
 }
 
 .cm-editor {
-	@apply bg-white dark:bg-black;
+	height: 100%;
+	width: 100%;
+	background: rgb(240, 240, 240);
+}
+
+.dark .cm-editor {
+	background: rgb(23, 23, 23);
+}
+
+.codeblock-buttons {
+	background: rgb(240, 240, 240);
+}
+
+.dark .codeblock-buttons {
+	background: rgb(23, 23, 23);
+}
+
+.codeblock-buttons:hover {
+	text-decoration: underline;
+}
+
+.output-block {
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
+	background: rgb(240, 240, 240);
+}
+
+.dark .output-block {
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	background: rgb(23, 23, 23);
 }
 
 .tippy-box[data-theme~='dark'] {
@@ -343,13 +507,23 @@ input[type='number'] {
 	-webkit-text-security: disc;
 }
 
+/* changed: font family, background, and border */
 .codespan {
-	color: #eb5757;
-	border-width: 0px;
+	/* color: #eb5757; */
+	color: rgba(0, 0, 0, 0.8);
+	border: 1px solid rgb(0, 0, 0, 0.2);
+	background-color: rgba(0, 0, 0, 0.1);
 	padding: 3px 8px;
-	font-size: 0.8em;
+	font-size: .75rem;
+	font-family: "JetBrainsMono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
 	font-weight: 600;
-	@apply rounded-md dark:bg-gray-800 bg-gray-100 mx-0.5;
+	@apply rounded-md;
+}
+
+.dark .codespan {
+	color: rgba(255, 255, 255, 0.8);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	background-color: rgba(255, 255, 255, 0.05);
 }
 
 .svelte-flow {
@@ -587,10 +761,6 @@ input[type='number'] {
 }
 
 /* Code styling */
-.hljs {
-	@apply rounded-lg;
-}
-
 .hljs .num {
     display: inline-block;
     font-variant-numeric: tabular-nums;
@@ -609,10 +779,6 @@ code.line {
 .code {
     flex-grow: 1;
     min-width: 0;
-}
-
-.codeblock-buttons:hover {
-	text-decoration: underline;
 }
 
 /* Table styling for tiptap editors */

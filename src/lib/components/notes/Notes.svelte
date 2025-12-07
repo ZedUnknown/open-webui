@@ -43,7 +43,7 @@
 	import Search from '../icons/Search.svelte';
 	import Plus from '../icons/Plus.svelte';
 	import ChevronRight from '../icons/ChevronRight.svelte';
-	import Spinner from '../common/Spinner.svelte';
+	import Spinner from '../icons/animated/Spinner.svelte';
 	import Tooltip from '../common/Tooltip.svelte';
 	import NoteMenu from './Notes/NoteMenu.svelte';
 	import FilesOverlay from '../chat/MessageInput/FilesOverlay.svelte';

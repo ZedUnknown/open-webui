@@ -12,7 +12,7 @@
 	import Switch from './Switch.svelte';
 	import Tooltip from './Tooltip.svelte';
 	import dayjs from 'dayjs';
-	import Spinner from './Spinner.svelte';
+	import Spinner from '../icons/animated/Spinner.svelte';
 	import { getFileById } from '$lib/apis/files';
 
 	export let item;

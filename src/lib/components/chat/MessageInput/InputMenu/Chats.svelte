@@ -6,7 +6,7 @@
 	import { getChatList } from '$lib/apis/chats';
 
 	import Tooltip from '$lib/components/common/Tooltip.svelte';
-	import Spinner from '$lib/components/common/Spinner.svelte';
+	import Spinner from '$lib/components/icons/animated/Spinner.svelte';
 	import Loader from '$lib/components/common/Loader.svelte';
 	import { chatId } from '$lib/stores';
 

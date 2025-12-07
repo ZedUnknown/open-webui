@@ -25,7 +25,7 @@
 	import ChevronDown from '$lib/components/icons/ChevronDown.svelte';
 	import { WEBUI_API_BASE_URL, WEBUI_BASE_URL } from '$lib/constants';
 	import { config } from '$lib/stores';
-	import Spinner from '$lib/components/common/Spinner.svelte';
+	import Spinner from '$lib/components/icons/animated/Spinner.svelte';
 
 	let page = 1;
 	let items = null;

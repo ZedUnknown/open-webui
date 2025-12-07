@@ -11,7 +11,7 @@
 
 	import Modal from '$lib/components/common/Modal.svelte';
 	import Tooltip from '$lib/components/common/Tooltip.svelte';
-	import Spinner from '$lib/components/common/Spinner.svelte';
+	import Spinner from '$lib/components/icons/animated/Spinner.svelte';
 	import ChatsModal from '$lib/components/layout/ChatsModal.svelte';
 
 	const i18n = getContext('i18n');

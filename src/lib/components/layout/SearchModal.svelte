@@ -6,7 +6,7 @@
 	import Modal from '$lib/components/common/Modal.svelte';
 	import SearchInput from './Sidebar/SearchInput.svelte';
 	import { getChatById, getChatList, getChatListBySearchText } from '$lib/apis/chats';
-	import Spinner from '../common/Spinner.svelte';
+	import Spinner from '../icons/animated/Spinner.svelte';
 
 	import dayjs from '$lib/dayjs';
 	import localizedFormat from 'dayjs/plugin/localizedFormat';

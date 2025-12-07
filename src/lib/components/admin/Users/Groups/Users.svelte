@@ -21,7 +21,7 @@
 	import Pagination from '$lib/components/common/Pagination.svelte';
 	import ChevronDown from '$lib/components/icons/ChevronDown.svelte';
 	import ChevronUp from '$lib/components/icons/ChevronUp.svelte';
-	import Spinner from '$lib/components/common/Spinner.svelte';
+	import Spinner from '$lib/components/icons/animated/Spinner.svelte';
 
 	export let groupId: string;
 	export let userCount = 0;

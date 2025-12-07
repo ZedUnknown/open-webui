@@ -52,7 +52,7 @@
 
 	import NotificationToast from '$lib/components/NotificationToast.svelte';
 	import AppSidebar from '$lib/components/app/AppSidebar.svelte';
-	import Spinner from '$lib/components/common/Spinner.svelte';
+	import Spinner from '$lib/components/icons/animated/Spinner.svelte';
 	import { getUserSettings } from '$lib/apis/users';
 	import dayjs from 'dayjs';
 

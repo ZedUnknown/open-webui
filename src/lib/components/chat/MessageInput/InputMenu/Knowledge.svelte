@@ -9,7 +9,7 @@
 	import Tooltip from '$lib/components/common/Tooltip.svelte';
 	import Database from '$lib/components/icons/Database.svelte';
 	import DocumentPage from '$lib/components/icons/DocumentPage.svelte';
-	import Spinner from '$lib/components/common/Spinner.svelte';
+	import Spinner from '$lib/components/icons/animated/Spinner.svelte';
 
 	const i18n = getContext('i18n');
 

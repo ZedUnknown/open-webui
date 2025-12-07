@@ -7,7 +7,7 @@
 	import { toast } from 'svelte-sonner';
 	import { knowledge, user } from '$lib/stores';
 	import AccessControl from '../common/AccessControl.svelte';
-	import Spinner from '$lib/components/common/Spinner.svelte';
+	import Spinner from '$lib/components/icons/animated/Spinner.svelte';
 
 	let loading = false;
 
