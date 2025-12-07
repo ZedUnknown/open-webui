@@ -35,6 +35,8 @@
 	import ChevronUp from '../icons/ChevronUp.svelte';
 	import ChevronDown from '../icons/ChevronDown.svelte';
 	import Spinner from '../icons/animated/Spinner.svelte';
+	import QwenThinking from '../icons/animated/QwenThinking.svelte';
+	import QwenThought from '../icons/QwenThought.svelte';
 	import CodeBlock from '../chat/Messages/CodeBlock.svelte';
 	import Markdown from '../chat/Messages/Markdown.svelte';
 	import Image from './Image.svelte';
@@ -256,10 +258,11 @@
 					w-full font-medium flex items-center justify-between gap-2 
 					{attributes?.done && attributes?.done !== 'true' ? 'shimmer' : ''}">
 					{#if attributes?.done && attributes?.done !== 'true'}
-						<div>
-							<Spinner className="size-4" />
-						</div>
+						<div><QwenThinking className="size-4" /></div>
+					{:else}
+						<div><QwenThought className="size-5" /></div>
 					{/if}
+					
 
 					<div class="">
 						{#if attributes?.type === 'reasoning'}
