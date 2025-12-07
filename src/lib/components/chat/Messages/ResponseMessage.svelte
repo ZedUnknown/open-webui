@@ -652,7 +652,7 @@
 			</Name>
 
 			<div>
-				<div class="chat-{message.role} w-full min-w-full markdown-prose">
+				<div class="chat-{message.role} w-full min-w-full markdown-prose mt-1.5">
 					<div>
 						{#if model?.info?.meta?.capabilities?.status_updates ?? true}
 							<StatusHistory statusHistory={message?.statusHistory} />
