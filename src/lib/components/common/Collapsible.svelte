@@ -105,8 +105,8 @@
 	flex-direction: column-reverse;
 	max-height: 200px;
 	overflow: hidden;
-	-webkit-mask-image: linear-gradient(to top, black 60%, transparent);
-	mask-image: linear-gradient(to top, transparent, black 10%, transparent 120%);
+	/* -webkit-mask-image: linear-gradient(to top, black 60%, transparent); */
+	mask-image: linear-gradient(to bottom, transparent, black 60%);
 }
 
 </style>
