@@ -517,7 +517,7 @@
 					{:else} 
 						<!-- if preview button is disabled, copy button has rounded corners -->
 						<button
-							class="codeblock-buttons copy-code-button rounded-tl-none rounded-bl-none rounded-tr-md transition px-1.5 py-0.5"
+							class="codeblock-buttons copy-code-button rounded-tl-none rounded-bl-none rounded-tr-md rounded-br-md transition px-1.5 py-0.5"
 							on:click={copyCode}>{copied ? $i18n.t('Copied') : $i18n.t('Copy')}</button>
 					{/if}
 				</div>
