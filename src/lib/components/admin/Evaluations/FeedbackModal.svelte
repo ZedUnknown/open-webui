@@ -5,7 +5,7 @@
 	import XMark from '$lib/components/icons/XMark.svelte';
 	import { getFeedbackById } from '$lib/apis/evaluations';
 	import { toast } from 'svelte-sonner';
-	import Spinner from '$lib/components/common/Spinner.svelte';
+	import Spinner from '$lib/components/icons/animated/Spinner.svelte';
 
 	export let show = false;
 	export let selectedFeedback = null;

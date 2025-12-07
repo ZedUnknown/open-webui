@@ -6,7 +6,7 @@
 
 	import ChatList from './ChatList.svelte';
 	import FolderKnowledge from './FolderKnowledge.svelte';
-	import Spinner from '$lib/components/common/Spinner.svelte';
+	import Spinner from '$lib/components/icons/animated/Spinner.svelte';
 	import { getChatListByFolderId } from '$lib/apis/chats';
 
 	export let folder = null;

@@ -3,7 +3,7 @@
 	const i18n = getContext('i18n');
 	const dispatch = createEventDispatcher();
 
-	import Spinner from '$lib/components/common/Spinner.svelte';
+	import Spinner from '$lib/components/icons/animated/Spinner.svelte';
 	import Modal from '$lib/components/common/Modal.svelte';
 	import { models } from '$lib/stores';
 	import Plus from '$lib/components/icons/Plus.svelte';

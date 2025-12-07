@@ -18,7 +18,7 @@
 
 	import Message from './Messages/Message.svelte';
 	import Loader from '../common/Loader.svelte';
-	import Spinner from '../common/Spinner.svelte';
+	import Spinner from '../icons/animated/Spinner.svelte';
 
 	import ChatPlaceholder from './ChatPlaceholder.svelte';
 

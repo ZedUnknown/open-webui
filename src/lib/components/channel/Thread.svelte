@@ -10,7 +10,7 @@
 	import Messages from './Messages.svelte';
 	import { onDestroy, onMount, tick, getContext } from 'svelte';
 	import { toast } from 'svelte-sonner';
-	import Spinner from '../common/Spinner.svelte';
+	import Spinner from '../icons/animated/Spinner.svelte';
 
 	const i18n = getContext('i18n');
 

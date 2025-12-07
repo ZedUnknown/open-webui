@@ -9,7 +9,7 @@
 	import AccessControlModal from '../common/AccessControlModal.svelte';
 	import { user } from '$lib/stores';
 	import { slugify } from '$lib/utils';
-	import Spinner from '$lib/components/common/Spinner.svelte';
+	import Spinner from '$lib/components/icons/animated/Spinner.svelte';
 
 	export let onSubmit: Function;
 	export let edit = false;

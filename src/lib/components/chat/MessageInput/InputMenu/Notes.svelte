@@ -7,7 +7,7 @@
 
 	import Tooltip from '$lib/components/common/Tooltip.svelte';
 	import PageEdit from '$lib/components/icons/PageEdit.svelte';
-	import Spinner from '$lib/components/common/Spinner.svelte';
+	import Spinner from '$lib/components/icons/animated/Spinner.svelte';
 	import Loader from '$lib/components/common/Loader.svelte';
 
 	const i18n = getContext('i18n');

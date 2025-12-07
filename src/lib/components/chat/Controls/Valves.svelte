@@ -18,7 +18,7 @@
 	} from '$lib/apis/functions';
 
 	import Tooltip from '$lib/components/common/Tooltip.svelte';
-	import Spinner from '$lib/components/common/Spinner.svelte';
+	import Spinner from '$lib/components/icons/animated/Spinner.svelte';
 	import Valves from '$lib/components/common/Valves.svelte';
 
 	const dispatch = createEventDispatcher();

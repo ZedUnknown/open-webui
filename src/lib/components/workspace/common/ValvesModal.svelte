@@ -25,7 +25,7 @@
 		getFunctions
 	} from '$lib/apis/functions';
 
-	import Spinner from '../../common/Spinner.svelte';
+	import Spinner from '../../icons/animated/Spinner.svelte';
 	import Switch from '$lib/components/common/Switch.svelte';
 	import Valves from '$lib/components/common/Valves.svelte';
 	import XMark from '$lib/components/icons/XMark.svelte';

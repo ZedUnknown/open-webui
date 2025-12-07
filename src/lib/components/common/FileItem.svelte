@@ -4,7 +4,7 @@
 
 	import FileItemModal from './FileItemModal.svelte';
 	import GarbageBin from '../icons/GarbageBin.svelte';
-	import Spinner from './Spinner.svelte';
+	import Spinner from '../icons/animated/Spinner.svelte';
 	import Tooltip from './Tooltip.svelte';
 	import XMark from '$lib/components/icons/XMark.svelte';
 	import { settings } from '$lib/stores';
