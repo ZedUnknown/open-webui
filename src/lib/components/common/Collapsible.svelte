@@ -91,11 +91,24 @@
 
 <style>
 .half {
-	display: flex;
-    flex-direction: column-reverse;
-	max-height: 200px;
-	mask-image: linear-gradient(to top, black 60%, transparent);
+	display: block;
 }
+
+:global(.half #reasoning-block) {
+	position: relative;
+	padding-top: 1rem;
+	overflow: hidden;
+}
+
+:global(.half #reasoning-block-mask) {
+	display: flex;
+	flex-direction: column-reverse;
+	max-height: 200px;
+	overflow: hidden;
+	-webkit-mask-image: linear-gradient(to top, black 60%, transparent);
+	mask-image: linear-gradient(to top, transparent, black 10%, transparent 120%);
+}
+
 </style>
 
 <div {id} class={className}>
