@@ -187,12 +187,6 @@ html {
 	min-height: calc(20px * var(--app-text-scale, 1));
 }
 
-code {
-	/* white-space-collapse: preserve !important; */
-	overflow-x: auto;
-	width: auto;
-}
-
 .editor-selection {
 	background: rgba(180, 213, 255, 0.5);
 	border-radius: 2px;
@@ -485,13 +479,23 @@ input[type='number'] {
 	-webkit-text-security: disc;
 }
 
+/* changed: font family, background, and border */
 .codespan {
-	color: #eb5757;
-	border-width: 0px;
+	/* color: #eb5757; */
+	color: rgb(0, 0, 0, 0.8);
+	border: 1px solid rgb(0, 0, 0, 0.2);
+	background-color: rgba(0, 0, 0, 0.1);
 	padding: 3px 8px;
-	font-size: 0.8em;
+	font-size: .75rem;
+	font-family: "JetBrainsMono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
 	font-weight: 600;
-	@apply rounded-md dark:bg-gray-800 bg-gray-100 mx-0.5;
+	@apply rounded-md;
+}
+
+.dark .codespan {
+	color: rgb(255, 255, 255, 0.8);
+	border: 1px solid rgb(255, 255, 255, 0.2);
+	background-color: rgba(255, 255, 255, 0.05);
 }
 
 .svelte-flow {
