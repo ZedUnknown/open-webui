@@ -44,8 +44,7 @@
 	export let open = false;
 
 	export let className = '';
-	export let buttonClassName =
-		'w-fit text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition';
+	export let buttonClassName = 'w-fit text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition';
 
 	export let id = '';
 	export let title = null;
@@ -61,7 +60,7 @@
 
 	$: onChange(open);
 
-	$: halfOpen = !open && attributes?.done !== 'true';
+	$: halfOpen = !open && attributes?.done !== 'true' && attributes?.type === 'reasoning';
 
 	const collapsibleId = uuidv4();
 
