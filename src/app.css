@@ -440,11 +440,6 @@ input[type='number'] {
 	display: none;
 }
 
-.cm-editor {
-	height: 100%;
-	width: 100%;
-}
-
 .cm-scroller:active::-webkit-scrollbar-thumb,
 .cm-scroller:focus::-webkit-scrollbar-thumb,
 .cm-scroller:hover::-webkit-scrollbar-thumb {
@@ -463,12 +458,45 @@ input[type='number'] {
 	outline: none;
 }
 
+/* changed: background */
 .cm-gutters {
-	@apply !bg-white dark:!bg-black !border-none;
+	background: none;
+}
+
+.dark .cm-gutters {
+	background: none;
 }
 
 .cm-editor {
-	@apply bg-white dark:bg-black;
+	height: 100%;
+	width: 100%;
+	background: rgb(240, 240, 240);
+}
+
+.dark .cm-editor {
+	background: rgb(23, 23, 23);
+}
+
+.codeblock-buttons {
+	background: rgb(240, 240, 240);
+}
+
+.dark .codeblock-buttons {
+	background: rgb(23, 23, 23);
+}
+
+.codeblock-buttons:hover {
+	text-decoration: underline;
+}
+
+.output-block {
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
+	background: rgb(240, 240, 240);
+}
+
+.dark .output-block {
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	background: rgb(23, 23, 23);
 }
 
 .tippy-box[data-theme~='dark'] {
@@ -482,7 +510,7 @@ input[type='number'] {
 /* changed: font family, background, and border */
 .codespan {
 	/* color: #eb5757; */
-	color: rgb(0, 0, 0, 0.8);
+	color: rgba(0, 0, 0, 0.8);
 	border: 1px solid rgb(0, 0, 0, 0.2);
 	background-color: rgba(0, 0, 0, 0.1);
 	padding: 3px 8px;
@@ -493,8 +521,8 @@ input[type='number'] {
 }
 
 .dark .codespan {
-	color: rgb(255, 255, 255, 0.8);
-	border: 1px solid rgb(255, 255, 255, 0.2);
+	color: rgba(255, 255, 255, 0.8);
+	border: 1px solid rgba(255, 255, 255, 0.2);
 	background-color: rgba(255, 255, 255, 0.05);
 }
 
@@ -733,10 +761,6 @@ input[type='number'] {
 }
 
 /* Code styling */
-.hljs {
-	@apply rounded-lg;
-}
-
 .hljs .num {
     display: inline-block;
     font-variant-numeric: tabular-nums;
@@ -755,10 +779,6 @@ code.line {
 .code {
     flex-grow: 1;
     min-width: 0;
-}
-
-.codeblock-buttons:hover {
-	text-decoration: underline;
 }
 
 /* Table styling for tiptap editors */
