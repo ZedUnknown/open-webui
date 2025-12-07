@@ -449,7 +449,10 @@
 				</div>
 			{/if}
 		{:else}
-			<div class="sticky {stickyButtonsClassName} left-0 right-0 py-2 pr-3 flex items-center justify-end w-full z-10 text-xs text-black dark:text-white">
+			<div 
+				class="sticky {stickyButtonsClassName} left-0 right-0 py-2 pr-3 flex items-center justify-end ml-auto w-fit z-10 text-xs text-black dark:text-white"
+				style="{code.split('\n').length <= 1 ? 'padding-top: 5px; padding-bottom: 12px;' : ''}"
+			>
 				<div class="flex items-center">
 					<button
 						class="codeblock-buttons flex gap-1 items-center rounded-tr-none rounded-br-none rounded-tl-md rounded-bl-md transition px-1.5 py-0.5"
