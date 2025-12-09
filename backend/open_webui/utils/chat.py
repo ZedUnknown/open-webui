@@ -334,7 +334,7 @@ async def chat_completed(request: Request, form_data: dict, user: Any):
         filter_functions = [
             Functions.get_function_by_id(filter_id)
             for filter_id in get_sorted_filter_ids(
-                request, model, metadata.get("filter_ids", [])
+                request, model
             )
         ]
 
@@ -342,6 +342,7 @@ async def chat_completed(request: Request, form_data: dict, user: Any):
             request=request,
             filter_functions=filter_functions,
             filter_type="outlet",
+            enabled_filter_ids=metadata.get("filter_ids", []),
             form_data=data,
             extra_params=extra_params,
         )

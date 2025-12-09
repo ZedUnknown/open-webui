@@ -1255,7 +1255,7 @@ async def process_chat_payload(request, form_data, user, metadata, model):
         filter_functions = [
             Functions.get_function_by_id(filter_id)
             for filter_id in get_sorted_filter_ids(
-                request, model, metadata.get("filter_ids", [])
+                request, model
             )
         ]
 
@@ -1263,6 +1263,7 @@ async def process_chat_payload(request, form_data, user, metadata, model):
             request=request,
             filter_functions=filter_functions,
             filter_type="inlet",
+            enabled_filter_ids=metadata.get("filter_ids", []),
             form_data=form_data,
             extra_params=extra_params,
         )
@@ -2017,7 +2018,7 @@ async def process_chat_response(
     filter_functions = [
         Functions.get_function_by_id(filter_id)
         for filter_id in get_sorted_filter_ids(
-            request, model, metadata.get("filter_ids", [])
+            request, model
         )
     ]
 
@@ -2513,6 +2514,7 @@ async def process_chat_response(
                                 request=request,
                                 filter_functions=filter_functions,
                                 filter_type="stream",
+                                enabled_filter_ids=metadata.get("filter_ids", []),
                                 form_data=data,
                                 extra_params={"__body__": form_data, **extra_params},
                             )
@@ -3276,6 +3278,7 @@ async def process_chat_response(
                     request=request,
                     filter_functions=filter_functions,
                     filter_type="stream",
+                    enabled_filter_ids=metadata.get("filter_ids", []),
                     form_data=event,
                     extra_params=extra_params,
                 )
@@ -3288,6 +3291,7 @@ async def process_chat_response(
                     request=request,
                     filter_functions=filter_functions,
                     filter_type="stream",
+                    enabled_filter_ids=metadata.get("filter_ids", []),
                     form_data=data,
                     extra_params=extra_params,
                 )
