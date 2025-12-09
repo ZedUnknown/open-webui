@@ -11,7 +11,6 @@ from open_webui.env import SRC_LOG_LEVELS
 log = logging.getLogger(__name__)
 log.setLevel(SRC_LOG_LEVELS["MAIN"])
 
-
 def get_function_module(request, function_id, load_from_db=True):
     """
     Get the function module by its ID.
@@ -21,8 +20,41 @@ def get_function_module(request, function_id, load_from_db=True):
     )
     return function_module
 
+def get_active_status(request, filter_id, enabled_filter_ids:list = None):
+    """
+    This function is used to populate the __tactive__ parameter which informs
+    filters about their toggle state from the user's perspective. Unlike previous
+    implementations, this does not control whether the filter executes or not,
+    but purely provides information about user preference.
+    
+    Args:
+        request: The FastAPI request object, used to access the function module
+        filter_id (str): The unique identifier of the filter to check
+        enabled_filter_ids (list, optional): List of filter IDs that are enabled by the user.
+            
+    Returns:
+        bool: True if:
+            - The filter is not toggleable (no 'toggle' attribute or self.toggle=False), or
+            - The filter is toggleable and is in the enabled_filter_ids list
+              (meaning user has enabled this toggleable filter)
+        False if:
+            - The filter is toggleable but is NOT in the enabled_filter_ids list
+              (meaning user has not enabled this toggleable filter)
+              
+    Note:
+        - Non-toggleable filters (without toggle=True) always return True
+        - Toggleable filters (with toggle=True) return True only if they are
+          in the enabled_filter_ids list
+        - This function does NOT control filter execution, only reports toggle state
+    """
+    function_module = get_function_module(request, filter_id)
 
-def get_sorted_filter_ids(request, model: dict, enabled_filter_ids: list = None):
+    if getattr(function_module, "toggle", None):
+        return filter_id in (enabled_filter_ids or [])
+
+    return True
+
+def get_sorted_filter_ids(request, model: dict):
     def get_priority(function_id):
         function = Functions.get_function_by_id(function_id)
         if function is not None:
@@ -39,16 +71,8 @@ def get_sorted_filter_ids(request, model: dict, enabled_filter_ids: list = None)
         for function in Functions.get_functions_by_type("filter", active_only=True)
     ]
 
-    def get_active_status(filter_id):
-        function_module = get_function_module(request, filter_id)
-
-        if getattr(function_module, "toggle", None):
-            return filter_id in (enabled_filter_ids or [])
-
-        return True
-
     active_filter_ids = [
-        filter_id for filter_id in active_filter_ids if get_active_status(filter_id)
+        filter_id for filter_id in active_filter_ids
     ]
 
     filter_ids = [fid for fid in filter_ids if fid in active_filter_ids]
@@ -56,12 +80,11 @@ def get_sorted_filter_ids(request, model: dict, enabled_filter_ids: list = None)
 
     return filter_ids
 
-
 async def process_filter_functions(
-    request, filter_functions, filter_type, form_data, extra_params
+    request, filter_functions, filter_type, enabled_filter_ids, form_data, extra_params
 ):
     skip_files = None
-
+    
     for function in filter_functions:
         filter = function
         filter_id = function.id
@@ -95,11 +118,15 @@ async def process_filter_functions(
             if filter_type == "stream":
                 params = {"event": form_data}
 
+            # Check if a toggleable filter is active or not (toggled by user)
+            is_toggle_active = get_active_status(request, filter_id, enabled_filter_ids)
+            
             params = params | {
                 k: v
                 for k, v in {
                     **extra_params,
                     "__id__": filter_id,
+                    "__tactive__": is_toggle_active,
                 }.items()
                 if k in sig.parameters
             }

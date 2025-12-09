@@ -1540,14 +1540,21 @@
 													>
 														{#if filter?.icon}
 															<div class="size-4 items-center flex justify-center">
-																<img
-																	src={filter.icon}
-																	class="size-3.5 {filter.icon.includes('svg')
-																		? 'dark:invert-[80%]'
-																		: ''}"
-																	style="fill: currentColor;"
-																	alt={filter.name}
-																/>
+																<!-- changed: added support for svg -->
+																{#if filter.icon.trim().startsWith('<svg')}
+																	{@html filter.icon.replace(
+																		'<svg',
+																		'<svg class="size-4" style="fill: currentColor;"'
+																	)}
+																{:else}
+																	{@const base64Icon = `data:image/svg+xml;base64,${btoa(decodeURIComponent(filter.icon.split(',')[1]))}`}
+																	<div
+																		class="size-4"
+																		style="background-color: currentColor; mask-image: url({base64Icon}); mask-size: contain; mask-repeat: no-repeat; mask-position: center; -webkit-mask-image: url({base64Icon}); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center;"
+																		role="img"
+																		aria-label={filter.name}
+																	/>
+																{/if}
 															</div>
 														{:else}
 															<Sparkles className="size-4" strokeWidth="1.75" />
