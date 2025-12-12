@@ -217,21 +217,35 @@
 		{#if alert}
 			<AlertRenderer {token} {alert} />
 		{:else}
-			<blockquote dir="auto" id="reasoning-block">
-				<div id="reasoning-block-mask">
-					<div id="reasoning-block-content">
-						<svelte:self
-							id={`${id}-${tokenIdx}`}
-							tokens={token.tokens}
-							{done}
-							{editCodeBlock}
-							{onTaskClick}
-							{sourceIds}
-							{onSourceClick}
-						/>
+			{#if attributes?.type === 'reasoning'}
+				<blockquote dir="auto" class="reasoning-block">
+					<div class="reasoning-block-mask">
+						<div class="reasoning-block-content">
+							<svelte:self
+								id={`${id}-${tokenIdx}`}
+								tokens={token.tokens}
+								{done}
+								{editCodeBlock}
+								{onTaskClick}
+								{sourceIds}
+								{onSourceClick}
+							/>
+						</div>
 					</div>
-				</div>
-			</blockquote>
+				</blockquote>
+			{:else}
+				<blockquote dir="auto">
+					<svelte:self
+						id={`${id}-${tokenIdx}`}
+						tokens={token.tokens}
+						{done}
+						{editCodeBlock}
+						{onTaskClick}
+						{sourceIds}
+						{onSourceClick}
+					/>
+				</blockquote>
+			{/if}
 		{/if}
 	{:else if token.type === 'list'}
 		{#if token.ordered}
@@ -323,10 +337,10 @@
 			title={token.summary}
 			open={$settings?.expandDetails ?? false}
 			attributes={token?.attributes}
-			className="w-full space-y-1"
+			className="w-full space-y-1 mb-2"
 			dir="auto"
 		>
-			<div class=" mb-1.5" slot="content">
+			<div id="reasoning-block-container" slot="content">
 				<svelte:self
 					id={`${id}-${tokenIdx}-d`}
 					tokens={marked.lexer(decode(token.text))}
@@ -339,6 +353,7 @@
 				/>
 			</div>
 		</Collapsible>
+
 	{:else if token.type === 'html'}
 		<HtmlToken {id} {token} {onSourceClick} />
 	{:else if token.type === 'iframe'}
