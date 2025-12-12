@@ -11,7 +11,7 @@
 
 	export let className = ` w-full ${($settings?.highContrastMode ?? false) ? '' : 'outline-hidden focus:outline-hidden'}`;
 
-	export let imageClassName = 'rounded-lg';
+	// export let imageClassName = '';
 
 	export let dismissible = false;
 	export let onDismiss = () => {};
@@ -35,7 +35,7 @@
 		aria-label={$i18n.t('Show image preview')}
 		type="button"
 	>
-		<img src={_src} {alt} class={imageClassName} draggable="false" data-cy="image" />
+		<img src={_src} {alt} class="rounded-xl border-1 border-gray-100 dark:border-gray-850 hover:border-gray-400 hover:dark:border-gray-600 focus-within:border-gray-100 focus-within:dark:border-gray-800 transition" draggable="false" data-cy="image" />
 	</button>
 
 	{#if dismissible}
