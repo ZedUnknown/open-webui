@@ -302,34 +302,33 @@
 							</div>
 
 							<Switch bind:state={config.ENABLE_IMAGE_GENERATION} />
+							{console.log(`Image GENERATION: ${config.ENABLE_IMAGE_GENERATION}`)}
 						</div>
 					</div>
-					{#if config.ENABLE_IMAGE_GENERATION}
-						<div class="mb-2.5">
-							<div class="flex w-full justify-between items-center">
-								<div class="text-xs pr-2">
-									<div class="">
-										{$i18n.t('Disable follow-up chat after generation')}
-									</div>
+					<div class="mb-2.5 {!config.ENABLE_IMAGE_GENERATION ? 'opacity-60 grayscale text-gray-400 dark:text-gray-600 pointer-events-none select-none' : ''}">
+						<div class="flex w-full justify-between items-center">
+							<div class="text-xs pr-2">
+								<div class="">
+									{$i18n.t('Disable follow-up chat after generation')}
 								</div>
+							</div>
 
-								<Switch
-									bind:state={config.DISABLE_RESPONSE_AFTER_GEN}
-								/>
-							</div>
-							<div class="mt-1 text-xs text-gray-400 dark:text-gray-500">
-								{$i18n.t('Prevent further LLM processing once the image is generated.')}
-							</div>
+							<Switch
+								bind:state={config.DISABLE_RESPONSE_AFTER_GEN}
+							/>
 						</div>
-					{/if}
+						<div class="mt-1 text-xs text-gray-400 dark:text-gray-500">
+							{$i18n.t('Prevent further LLM processing once the image is generated.')}
+						</div>
+					</div>
 				</div>
 
-				<div class="mb-3">
+				<div class="mb-3 {!config.ENABLE_IMAGE_GENERATION ? 'opacity-60 grayscale text-gray-400 dark:text-gray-600 pointer-events-none select-none' : ''}">
 					<div class=" mt-0.5 mb-2.5 text-base font-medium">{$i18n.t('Create Image')}</div>
 
 					<hr class=" border-gray-100 dark:border-gray-850 my-2" />
 
-					{#if config.ENABLE_IMAGE_GENERATION}
+
 						<div class="mb-2.5">
 							<div class="flex w-full justify-between items-center">
 								<div class="text-xs pr-2">
@@ -409,7 +408,7 @@
 								<Switch bind:state={config.ENABLE_IMAGE_PROMPT_GENERATION} />
 							</div>
 						</div>
-					{/if}
+
 
 					<div class="mb-2.5">
 						<div class="flex w-full justify-between items-center">
@@ -897,6 +896,7 @@
 					{/if}
 				</div>
 
+
 				<div class="mb-3">
 					<div class=" mt-0.5 mb-2.5 text-base font-medium">{$i18n.t('Edit Image')}</div>
 
@@ -913,8 +913,8 @@
 							<Switch bind:state={config.ENABLE_IMAGE_EDIT} />
 						</div>
 					</div>
-
-					{#if config?.ENABLE_IMAGE_GENERATION && config?.ENABLE_IMAGE_EDIT}
+				</div>
+				<div class="{!config.ENABLE_IMAGE_EDIT ? 'opacity-60 grayscale text-gray-400 dark:text-gray-600 pointer-events-none select-none' : ''}">
 						<div class="mb-2.5">
 							<div class="flex w-full justify-between items-center">
 								<div class="text-xs pr-2">
@@ -957,7 +957,6 @@
 								</Tooltip>
 							</div>
 						</div>
-					{/if}
 
 					<div class="mb-2.5">
 						<div class="flex w-full justify-between items-center">
