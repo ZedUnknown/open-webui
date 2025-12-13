@@ -1997,12 +1997,11 @@
 		if (res) {
 			if (res.error) {
 				await handleOpenAIError(res.error, responseMessage);
-			} else {
-				if (taskIds) {
-					taskIds.push(res.task_id);
-				} else {
-					taskIds = [res.task_id];
-				}
+			} else if (res.stopchain) {
+				console.log("Stop chain detected - stopping further task execution");
+				return;
+			} else if (res.task_id) {
+				taskIds = taskIds ? [...taskIds, res.task_id] : [res.task_id];
 			}
 		}
 

@@ -1626,6 +1626,10 @@ async def chat_completion(
                 request, form_data, user, metadata, model
             )
 
+            if form_data.get("__stopchain__"):
+                log.info("Stop chain detected - stopping further task execution")
+                return {"stopchain": True}
+
             response = await chat_completion_handler(request, form_data, user)
             if metadata.get("chat_id") and metadata.get("message_id"):
                 try:
@@ -1655,7 +1659,7 @@ async def chat_completion(
             except Exception as e:
                 pass
             finally:
-                raise  # re-raise to ensure proper task cancellation handling
+                raise # re-raise to ensure proper task cancellation handling
         except Exception as e:
             log.debug(f"Error processing chat payload: {e}")
             if metadata.get("chat_id") and metadata.get("message_id"):
@@ -1692,20 +1696,26 @@ async def chat_completion(
                 log.debug(f"Error cleaning up: {e}")
                 pass
 
-    if (
-        metadata.get("session_id")
-        and metadata.get("chat_id")
-        and metadata.get("message_id")
-    ):
-        # Asynchronous Chat Processing
+    chat_processor = process_chat(request, form_data, user, metadata, model)
+
+    # Async processing if all required metadata present
+    if all(metadata.get(key) for key in ["session_id", "chat_id", "message_id"]):
+        # Check stopchain BEFORE creating task
+        temp_result = await process_chat_payload(request, form_data, user, metadata, model)
+        form_data_temp = temp_result[0]
+
+        if form_data_temp.get("__stopchain__"):
+            return {"stopchain": True}
+
         task_id, _ = await create_task(
             request.app.state.redis,
-            process_chat(request, form_data, user, metadata, model),
+            chat_processor,
             id=metadata["chat_id"],
         )
         return {"status": True, "task_id": task_id}
-    else:
-        return await process_chat(request, form_data, user, metadata, model)
+
+    # Sync processing
+    return await chat_processor
 
 
 # Alias for chat_completion (Legacy)

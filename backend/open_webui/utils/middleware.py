@@ -1307,6 +1307,10 @@ async def process_chat_payload(request, form_data, user, metadata, model):
                 request, form_data, extra_params, user
             )
 
+            if request.app.state.config.DISABLE_RESPONSE_AFTER_GEN:
+                form_data["__stopchain__"] = True
+                log.debug(f"Setting __stopchain__ to {form_data["__stopchain__"]}")
+
         if "code_interpreter" in features and features["code_interpreter"]:
             form_data["messages"] = add_or_update_user_message(
                 (
