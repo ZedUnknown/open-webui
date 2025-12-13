@@ -779,7 +779,11 @@ async def chat_image_generation_handler(
     await __event_emitter__(
         {
             "type": "status",
-            "data": {"description": "Creating image", "done": False},
+            "data": {
+                "description": "Creating image",
+                "done": False,
+                "action": "image_generation"
+            },
         }
     )
 
@@ -819,7 +823,11 @@ async def chat_image_generation_handler(
             await __event_emitter__(
                 {
                     "type": "status",
-                    "data": {"description": "Image created", "done": True},
+                    "data": {
+                        "description": "Image created",
+                        "done": True,
+                        "action": "image_generation"
+                    },
                 }
             )
 

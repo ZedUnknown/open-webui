@@ -222,21 +222,21 @@ textarea::placeholder {
 
 /* changed reasoning block's border sides */
 .markdown-prose {
-	@apply prose dark:prose-invert prose-blockquote:border-gray-200 prose-blockquote:dark:border-gray-800 prose-blockquote:border-2 prose-blockquote:not-italic prose-blockquote:font-normal  prose-headings:font-semibold prose-hr:my-4 prose-hr:border-gray-50 prose-hr:dark:border-gray-850 prose-p:my-0 prose-img:my-1 prose-headings:my-1 prose-pre:my-0 prose-table:my-0 prose-blockquote:my-0 prose-ul:-my-0 prose-ol:-my-0 prose-li:-my-0 whitespace-pre-line;
+	@apply prose dark:prose-invert prose-blockquote:border-gray-200 prose-blockquote:dark:border-gray-800 prose-blockquote:border-2  prose-headings:font-semibold prose-hr:my-4 prose-hr:border-gray-50 prose-hr:dark:border-gray-850 prose-p:my-0 prose-img:my-1 prose-headings:my-1 prose-pre:my-0 prose-table:my-0 prose-ul:-my-0 prose-ol:-my-0 prose-li:-my-0 whitespace-pre-line;
 }
 
 .markdown-prose-sm {
-	@apply text-sm prose dark:prose-invert prose-blockquote:border-gray-200 prose-blockquote:dark:border-gray-800 prose-blockquote:border-2 prose-blockquote:not-italic prose-blockquote:font-normal  prose-headings:font-semibold prose-hr:my-2  prose-hr:border-gray-50 prose-hr:dark:border-gray-850 prose-p:my-0 prose-img:my-1 prose-headings:my-1 prose-pre:my-0 prose-table:my-0 prose-blockquote:my-0 prose-ul:-my-0 prose-ol:-my-0 prose-li:-my-0 whitespace-pre-line;
+	@apply text-sm prose dark:prose-invert prose-blockquote:border-gray-200 prose-blockquote:dark:border-gray-800 prose-blockquote:border-2 prose-headings:font-semibold prose-hr:my-2  prose-hr:border-gray-50 prose-hr:dark:border-gray-850 prose-p:my-0 prose-img:my-1 prose-headings:my-1 prose-pre:my-0 prose-table:my-0 prose-ul:-my-0 prose-ol:-my-0 prose-li:-my-0 whitespace-pre-line;
 }
 
 .markdown-prose-xs {
-	@apply text-xs prose dark:prose-invert prose-blockquote:border-gray-200 prose-blockquote:dark:border-gray-800 prose-blockquote:border-2 prose-blockquote:not-italic prose-blockquote:font-normal  prose-headings:font-semibold prose-hr:my-0.5  prose-hr:border-gray-50 prose-hr:dark:border-gray-850 prose-p:my-0 prose-img:my-1 prose-headings:my-1 prose-pre:my-0 prose-table:my-0 prose-blockquote:my-0 prose-ul:-my-0 prose-ol:-my-0 prose-li:-my-0 whitespace-pre-line;
+	@apply text-xs prose dark:prose-invert prose-blockquote:border-gray-200 prose-blockquote:dark:border-gray-800 prose-blockquote:border-2 prose-headings:font-semibold prose-hr:my-0.5  prose-hr:border-gray-50 prose-hr:dark:border-gray-850 prose-p:my-0 prose-img:my-1 prose-headings:my-1 prose-pre:my-0 prose-table:my-0 prose-ul:-my-0 prose-ol:-my-0 prose-li:-my-0 whitespace-pre-line;
 }
 
 /* reasoning block */
-.markdown-prose blockquote,
-.markdown-prose-sm blockquote,
-.markdown-prose-xs blockquote {
+.markdown-prose blockquote.reasoning-block,
+.markdown-prose-sm blockquote.reasoning-block,
+.markdown-prose-xs blockquote.reasoning-block {
 	display: block;
 	border-radius: 12px;
 	overflow: hidden;
@@ -245,13 +245,48 @@ textarea::placeholder {
 	font-family: "JetBrainsMono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
 	font-weight: 300;
 	font-size: .875rem;
+	font-style: normal;
+	margin-top: 1rem;
 }
 
 /* reasoning block */
-.dark .markdown-prose blockquote,
-.dark .markdown-prose-sm blockquote,
-.dark .markdown-prose-xs blockquote { 
+.dark .markdown-prose blockquote.reasoning-block,
+.dark .markdown-prose-sm blockquote.reasoning-block,
+.dark .markdown-prose-xs blockquote.reasoning-block {
 	color: rgb(255, 255, 255, 0.6);
+}
+
+/* regular blockquotes */
+.markdown-prose blockquote:not(.reasoning-block),
+.markdown-prose-sm blockquote:not(.reasoning-block),
+.markdown-prose-xs blockquote:not(.reasoning-block) {
+	display: block;
+	border: none;
+	border-radius: 12px;
+	padding-left: 1.5rem;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	font-style: normal;
+	position: relative;
+}
+
+.markdown-prose blockquote:not(.reasoning-block)::after,
+.markdown-prose-sm blockquote:not(.reasoning-block)::after,
+.markdown-prose-xs blockquote:not(.reasoning-block)::after {
+	content: "";
+	border-radius: 2px;
+	width: 4px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+.dark .markdown-prose blockquote:not(.reasoning-block)::after,
+.dark .markdown-prose-sm blockquote:not(.reasoning-block)::after,
+.dark .markdown-prose-xs blockquote:not(.reasoning-block)::after {
+	background-color: rgba(255, 255, 255, 0.2);
 }
 
 .markdown a {
@@ -499,8 +534,16 @@ input[type='number'] {
 	background: rgb(23, 23, 23);
 }
 
+.tippy-box {
+	@apply shadow-md;
+}
+
 .tippy-box[data-theme~='dark'] {
-	@apply rounded-lg bg-gray-950 text-xs border border-gray-900 shadow-xl;
+	@apply rounded-lg bg-gray-950 text-xs border border-gray-900;
+}
+
+.tippy-box[data-theme~='transparent'] {
+	@apply bg-transparent p-0 m-0;
 }
 
 .password {
@@ -805,10 +848,6 @@ code.line {
 
 .tiptap tr {
 	@apply bg-white dark:bg-gray-900 dark:border-gray-850 text-xs;
-}
-
-.tippy-box[data-theme~='transparent'] {
-	@apply bg-transparent p-0 m-0;
 }
 
 /* this is a rough fix for the first cursor position when the first paragraph is empty */

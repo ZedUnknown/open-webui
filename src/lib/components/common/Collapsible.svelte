@@ -96,13 +96,13 @@
 	display: block;
 }
 
-:global(.half #reasoning-block) {
+:global(.half .reasoning-block) {
 	position: relative;
 	padding-top: 1rem;
 	overflow: hidden;
 }
 
-:global(.half #reasoning-block-mask) {
+:global(.half .reasoning-block-mask) {
 	display: flex;
 	flex-direction: column-reverse;
 	max-height: 200px;
@@ -350,8 +350,8 @@
 			{console.log('open', open)}
 			{#if open || halfOpen}
 				<div
-					class="open {open ? '' : 'half'}"
-					transition:slide={{ duration: 600, easing: quintOut, axis: 'y' }}
+					class="{open ? '' : 'half'} overflow-hidden"
+					transition:slide={{ duration: 500, easing: quintOut, axis: 'y' }}
 				>
 					<slot name="content" />
 				</div>
