@@ -3244,6 +3244,12 @@ ENABLE_IMAGE_GENERATION = PersistentConfig(
     os.environ.get("ENABLE_IMAGE_GENERATION", "").lower() == "true",
 )
 
+DISABLE_RESPONSE_AFTER_GEN = PersistentConfig(
+    "DISABLE_RESPONSE_AFTER_GEN",
+    "image_generation.disable_response_after_gen",
+    os.environ.get("DISABLE_RESPONSE_AFTER_GEN", "false").lower() == "true",
+)
+
 IMAGE_GENERATION_ENGINE = PersistentConfig(
     "IMAGE_GENERATION_ENGINE",
     "image_generation.engine",

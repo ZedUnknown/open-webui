@@ -304,6 +304,24 @@
 							<Switch bind:state={config.ENABLE_IMAGE_GENERATION} />
 						</div>
 					</div>
+					{#if config.ENABLE_IMAGE_GENERATION}
+						<div class="mb-2.5">
+							<div class="flex w-full justify-between items-center">
+								<div class="text-xs pr-2">
+									<div class="">
+										{$i18n.t('Disable follow-up chat after generation')}
+									</div>
+								</div>
+
+								<Switch
+									bind:state={config.DISABLE_RESPONSE_AFTER_GEN}
+								/>
+							</div>
+							<div class="mt-1 text-xs text-gray-400 dark:text-gray-500">
+								{$i18n.t('Prevent further LLM processing once the image is generated.')}
+							</div>
+						</div>
+					{/if}
 				</div>
 
 				<div class="mb-3">

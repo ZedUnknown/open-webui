@@ -101,6 +101,7 @@ def get_image_model(request):
 
 class ImagesConfig(BaseModel):
     ENABLE_IMAGE_GENERATION: bool
+    DISABLE_RESPONSE_AFTER_GEN: bool
     ENABLE_IMAGE_PROMPT_GENERATION: bool
 
     IMAGE_GENERATION_ENGINE: str
@@ -146,6 +147,7 @@ class ImagesConfig(BaseModel):
 async def get_config(request: Request, user=Depends(get_admin_user)):
     return {
         "ENABLE_IMAGE_GENERATION": request.app.state.config.ENABLE_IMAGE_GENERATION,
+        "DISABLE_RESPONSE_AFTER_GEN": request.app.state.config.DISABLE_RESPONSE_AFTER_GEN,
         "ENABLE_IMAGE_PROMPT_GENERATION": request.app.state.config.ENABLE_IMAGE_PROMPT_GENERATION,
         "IMAGE_GENERATION_ENGINE": request.app.state.config.IMAGE_GENERATION_ENGINE,
         "IMAGE_GENERATION_MODEL": request.app.state.config.IMAGE_GENERATION_MODEL,
@@ -186,6 +188,7 @@ async def update_config(
     request: Request, form_data: ImagesConfig, user=Depends(get_admin_user)
 ):
     request.app.state.config.ENABLE_IMAGE_GENERATION = form_data.ENABLE_IMAGE_GENERATION
+    request.app.state.config.DISABLE_RESPONSE_AFTER_GEN = form_data.DISABLE_RESPONSE_AFTER_GEN
 
     # Create Image
     request.app.state.config.ENABLE_IMAGE_PROMPT_GENERATION = (
@@ -292,6 +295,7 @@ async def update_config(
 
     return {
         "ENABLE_IMAGE_GENERATION": request.app.state.config.ENABLE_IMAGE_GENERATION,
+        "DISABLE_RESPONSE_AFTER_GEN": request.app.state.config.DISABLE_RESPONSE_AFTER_GEN,
         "ENABLE_IMAGE_PROMPT_GENERATION": request.app.state.config.ENABLE_IMAGE_PROMPT_GENERATION,
         "IMAGE_GENERATION_ENGINE": request.app.state.config.IMAGE_GENERATION_ENGINE,
         "IMAGE_GENERATION_MODEL": request.app.state.config.IMAGE_GENERATION_MODEL,
