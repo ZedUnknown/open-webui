@@ -5,7 +5,7 @@
 
 	import { getChannelPinnedMessages, pinMessage } from '$lib/apis/channels';
 
-	import Spinner from '$lib/components/common/Spinner.svelte';
+	import Spinner from '$lib/components/icons/animated/Spinner.svelte';
 	import Modal from '$lib/components/common/Modal.svelte';
 
 	import XMark from '$lib/components/icons/XMark.svelte';

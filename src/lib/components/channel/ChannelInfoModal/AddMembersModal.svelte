@@ -8,7 +8,7 @@
 	import Modal from '$lib/components/common/Modal.svelte';
 	import XMark from '$lib/components/icons/XMark.svelte';
 	import MemberSelector from '$lib/components/workspace/common/MemberSelector.svelte';
-	import Spinner from '$lib/components/common/Spinner.svelte';
+	import Spinner from '$lib/components/icons/animated/Spinner.svelte';
 
 	export let show = false;
 	export let channel = null;

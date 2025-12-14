@@ -23,7 +23,7 @@
 	import EllipsisVertical from '../icons/EllipsisVertical.svelte';
 	import Thread from './Thread.svelte';
 	import i18n from '$lib/i18n';
-	import Spinner from '../common/Spinner.svelte';
+	import Spinner from '$lib/components/icons/animated/Spinner.svelte';
 
 	export let id = '';
 
