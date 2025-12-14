@@ -14,7 +14,7 @@
 
 	let ollamaVersion = '';
 
-	let updateAvailable = null;
+	let updateAvailable: boolean | null = null;
 	let version = {
 		current: '',
 		latest: ''
@@ -23,6 +23,7 @@
 	const checkForVersionUpdates = async () => {
 		updateAvailable = null;
 		version = await getVersionUpdates(localStorage.token).catch((error) => {
+			console.error(error);
 			return {
 				current: WEBUI_VERSION,
 				latest: WEBUI_VERSION
@@ -37,6 +38,7 @@
 
 	onMount(async () => {
 		ollamaVersion = await getOllamaVersion(localStorage.token).catch((error) => {
+			console.error(error);
 			return '';
 		});
 		if ($config?.features?.enable_version_update_check) {
@@ -66,7 +68,7 @@
 				<div class=" mb-2.5 text-sm font-medium">{$i18n.t('Ollama Version')}</div>
 				<div class="flex w-full">
 					<div class="flex-1 text-xs text-gray-700 dark:text-gray-200">
-						{ollamaVersion ?? 'xxxxxxxxxxxxxxxxxx'}
+						{ollamaVersion ?? ''}
 					</div>
 				</div>
 			</div>
