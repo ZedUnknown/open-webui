@@ -291,7 +291,7 @@
 				<div class="mb-3">
 					<div class=" mt-0.5 mb-2.5 text-base font-medium">{$i18n.t('General')}</div>
 
-					<hr class=" border-gray-100 dark:border-gray-850 my-2" />
+					<hr class=" border-gray-100/30 dark:border-gray-850/30 my-2" />
 
 					<div class="mb-2.5">
 						<div class="flex w-full justify-between items-center">
@@ -326,8 +326,7 @@
 				<div class="mb-3 {!config.ENABLE_IMAGE_GENERATION ? 'opacity-60 grayscale text-gray-400 dark:text-gray-600 pointer-events-none select-none' : ''}">
 					<div class=" mt-0.5 mb-2.5 text-base font-medium">{$i18n.t('Create Image')}</div>
 
-					<hr class=" border-gray-100 dark:border-gray-850 my-2" />
-
+					<hr class=" border-gray-100/30 dark:border-gray-850/30 my-2" />
 
 						<div class="mb-2.5">
 							<div class="flex w-full justify-between items-center">
@@ -397,18 +396,17 @@
 							</div>
 						{/if}
 
-						<div class="mb-2.5">
-							<div class="flex w-full justify-between items-center">
-								<div class="text-xs pr-2">
-									<div class="">
-										{$i18n.t('Image Prompt Generation')}
-									</div>
+					<div class="mb-2.5">
+						<div class="flex w-full justify-between items-center">
+							<div class="text-xs pr-2">
+								<div class="">
+									{$i18n.t('Image Prompt Generation')}
 								</div>
-
-								<Switch bind:state={config.ENABLE_IMAGE_PROMPT_GENERATION} />
 							</div>
-						</div>
 
+							<Switch bind:state={config.ENABLE_IMAGE_PROMPT_GENERATION} />
+						</div>
+					</div>
 
 					<div class="mb-2.5">
 						<div class="flex w-full justify-between items-center">
@@ -675,7 +673,7 @@
 								</div>
 							</div>
 						</div>
-
+					
 						<div class="mb-2.5">
 							<div class="flex w-full justify-between items-center">
 								<div class="text-xs pr-2 shrink-0">
@@ -913,7 +911,6 @@
 							<Switch bind:state={config.ENABLE_IMAGE_EDIT} />
 						</div>
 					</div>
-				</div>
 				<div class="{!config.ENABLE_IMAGE_EDIT ? 'opacity-60 grayscale text-gray-400 dark:text-gray-600 pointer-events-none select-none' : ''}">
 						<div class="mb-2.5">
 							<div class="flex w-full justify-between items-center">
@@ -957,7 +954,6 @@
 								</Tooltip>
 							</div>
 						</div>
-
 					<div class="mb-2.5">
 						<div class="flex w-full justify-between items-center">
 							<div class="text-xs pr-2">
@@ -1280,6 +1276,7 @@
 							</div>
 						</div>
 					{/if}
+					</div>
 				</div>
 			</div>
 		{/if}

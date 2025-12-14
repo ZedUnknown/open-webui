@@ -1941,7 +1941,9 @@
 
 				session_id: $socket?.id,
 				chat_id: $chatId,
+
 				id: responseMessageId,
+				parent_id: userMessage?.id ?? null,
 
 				background_tasks: {
 					...(!$temporaryChatEnabled &&
@@ -1999,6 +2001,16 @@
 				await handleOpenAIError(res.error, responseMessage);
 			} else if (res.stopchain) {
 				console.log("Stop chain detected - stopping further task execution");
+
+				// Mark the current response as done
+				const responseMessage = history.messages[responseMessageId];
+				if (responseMessage) {
+					responseMessage.done = true;
+					history.messages[responseMessageId] = responseMessage;
+				}
+				// remove any pending tasks
+				taskIds = null;
+
 				return;
 			} else if (res.task_id) {
 				taskIds = taskIds ? [...taskIds, res.task_id] : [res.task_id];

@@ -20,6 +20,7 @@
 	export let preview = false;
 	export let waitTillUnclosedSyntax = true;
 
+	export let paragraphTag = 'p';
 	export let editCodeBlock = true;
 	export let topPadding = false;
 
@@ -167,6 +168,7 @@
 		{done}
 		{save}
 		{preview}
+		{paragraphTag}
 		{editCodeBlock}
 		{sourceIds}
 		{topPadding}
